@@ -1091,25 +1091,31 @@ body::before {
   transform: translateY(-1px);
 }
 
-.groove-track-kick .groove-step.is-active {
+.groove-track-cyan .groove-step.is-active {
   border-color: #00ffd5;
   background: #00bfa6;
   box-shadow: 0 0 12px rgba(0, 255, 213, 0.22);
 }
 
-.groove-track-snare .groove-step.is-active {
+.groove-track-lime .groove-step.is-active {
+  border-color: #b6ff4a;
+  background: #6c9f1e;
+  box-shadow: 0 0 12px rgba(182, 255, 74, 0.22);
+}
+
+.groove-track-purple .groove-step.is-active {
   border-color: #b58aff;
   background: #8152c8;
   box-shadow: 0 0 12px rgba(181, 138, 255, 0.2);
 }
 
-.groove-track-hat .groove-step.is-active {
+.groove-track-amber .groove-step.is-active {
   border-color: #ffd166;
   background: #bd8b28;
   box-shadow: 0 0 12px rgba(255, 209, 102, 0.18);
 }
 
-.groove-track-clap .groove-step.is-active {
+.groove-track-pink .groove-step.is-active {
   border-color: #ff84b7;
   background: #bd4e7c;
   box-shadow: 0 0 12px rgba(255, 132, 183, 0.18);

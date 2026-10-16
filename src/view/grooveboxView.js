@@ -1,5 +1,6 @@
 const tracks = [
   { id: 'kick', name: 'KICK', detail: 'Bombo', color: 'cyan' },
+  { id: 'bass', name: 'BASS', detail: 'Bajo', color: 'lime' },
   { id: 'snare', name: 'SNARE', detail: 'Caja', color: 'purple' },
   { id: 'hat', name: 'HAT', detail: 'Hi-hat', color: 'amber' },
   { id: 'clap', name: 'CLAP', detail: 'Aplauso', color: 'pink' },
@@ -7,10 +8,13 @@ const tracks = [
 
 const initialPattern = {
   kick: [0, 4, 8, 12],
+  bass: [0, 3, 6, 8, 11, 14],
   snare: [4, 12],
   hat: [2, 6, 10, 14],
   clap: [6, 14],
 };
+
+const bassNotes = [110, 110, 130.81, 110, 146.83, 110, 164.81, 130.81, 98, 110, 130.81, 146.83, 110, 130.81, 164.81, 130.81];
 
 export function renderGroovebox() {
   return `
@@ -71,7 +75,7 @@ export function renderGroovebox() {
               ${Array.from({ length: 16 }, (_, index) => `<span class="${index % 4 === 0 ? 'groove-beat-number' : ''}">${String(index + 1).padStart(2, '0')}</span>`).join('')}
             </div>
             ${tracks.map(track => `
-              <div class="groove-track groove-track-${track.color}" data-track-row="${track.id}">
+              <div class="groove-track groove-track-${track.id} groove-track-${track.color}" data-track-row="${track.id}">
                 <button class="groove-track-name" type="button" data-action="preview" data-track="${track.id}" aria-label="Escuchar ${track.detail}">
                   <span>${track.name}</span>
                   <small>${track.detail}</small>
@@ -185,6 +189,28 @@ export function initGroovebox(root) {
     oscillator.stop(time + 0.25);
   }
 
+  function playBass(time, step = 0) {
+    const oscillator = audioContext.createOscillator();
+    const filter = audioContext.createBiquadFilter();
+    const gain = audioContext.createGain();
+
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.setValueAtTime(bassNotes[step % bassNotes.length], time);
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(900, time);
+    filter.frequency.exponentialRampToValueAtTime(240, time + 0.2);
+    filter.Q.value = 1;
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.exponentialRampToValueAtTime(0.42, time + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.22);
+
+    oscillator.connect(filter);
+    filter.connect(gain);
+    gain.connect(masterGain);
+    oscillator.start(time);
+    oscillator.stop(time + 0.23);
+  }
+
   function playSnare(time) {
     const noise = audioContext.createBufferSource();
     const filter = audioContext.createBiquadFilter();
@@ -255,6 +281,7 @@ export function initGroovebox(root) {
 
   const soundByTrack = {
     kick: playKick,
+    bass: playBass,
     snare: playSnare,
     hat: playHat,
     clap: playClap,
@@ -278,7 +305,7 @@ export function initGroovebox(root) {
   function scheduleStep(step, time) {
     trackIds.forEach(trackId => {
       if (pattern[trackId][step]) {
-        soundByTrack[trackId](time);
+        soundByTrack[trackId](time, step);
       }
     });
     setPlayhead(step, time - audioContext.currentTime);
@@ -379,9 +406,12 @@ export function initGroovebox(root) {
       trackIds.forEach(trackId => {
         const buttons = root.querySelectorAll(`[data-track="${trackId}"][data-action="step"]`);
         buttons.forEach(stepButton => {
+          const step = Number(stepButton.dataset.step);
           const active = trackId === 'kick'
-            ? Number(stepButton.dataset.step) % 4 === 0 || Math.random() > 0.84
-            : Math.random() > (trackId === 'hat' ? 0.48 : 0.76);
+            ? step % 4 === 0 || Math.random() > 0.84
+            : trackId === 'bass'
+              ? step % 4 === 0 || Math.random() > 0.78
+              : Math.random() > (trackId === 'hat' ? 0.48 : 0.76);
           updateStepButton(stepButton, active);
         });
       });
