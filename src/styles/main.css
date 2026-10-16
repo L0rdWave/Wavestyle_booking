@@ -918,6 +918,12 @@ body {
   color: var(--text-main);
   background: #0d1015;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+  cursor: auto;
+}
+
+.nightlife-preview-dialog a,
+.nightlife-preview-dialog button {
+  cursor: pointer;
 }
 
 .nightlife-preview-dialog::backdrop {
