@@ -1,4 +1,6 @@
 export function renderBooking() {
+  const pressKitUrl = new URL('./public/downloads/wavestyle-presskit.zip', document.baseURI).href;
+
   return `
     <div class="project-container booking-theme">
       <div class="back-nav">
@@ -47,7 +49,7 @@ export function renderBooking() {
           </p>
           
           <div style="margin-top: 1.2rem;">
-            <a href="public/downloads/wavestyle-presskit.zip" download class="counter" style="display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; padding: 0.8rem 1.4rem;">
+            <a href="${pressKitUrl}" download="wavestyle-presskit.zip" class="counter" style="display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; padding: 0.8rem 1.4rem;">
               <i data-lucide="file-archive"></i> Descargar Press Kit Oficial (.ZIP)
             </a>
           </div>

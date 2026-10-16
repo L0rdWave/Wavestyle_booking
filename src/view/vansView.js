@@ -1,4 +1,6 @@
 export function renderVans() {
+  const audioUrl = new URL('./public/audio/vans-take-you-higher.mp3', document.baseURI).href;
+
   return `
     <div class="project-container vans-theme">
       <div class="back-nav">
@@ -39,7 +41,7 @@ export function renderVans() {
 
           <div class="player-wrapper">
             <audio controls controlsList="nodownload noplaybackrate" class="cyber-audio-element">
-              <source src="public/audio/vans-take-you-higher.mp3" type="audio/mpeg">
+              <source src="${audioUrl}" type="audio/mpeg">
               Tu navegador no soporta el reproductor de audio.
             </audio>
           </div>
