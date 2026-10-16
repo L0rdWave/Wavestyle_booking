@@ -1,0 +1,58 @@
+{
+  "artist": {
+    "brand": "Wavestyle",
+    "creator": "Vans",
+    "handle": "@wavestyle.ok",
+    "tagline": "Plataforma Sonora Independiente · Buenos Aires, Argentina",
+    "concept": "Un universo. Tres identidades. Una misma frecuencia creativa.",
+    "bio": "Desde 2007, explorando la cultura electrónica a través del DJing, la producción musical y la tecnología. Wavestyle conecta tres identidades sonoras en un mismo ecosistema creativo, donde la música y el desarrollo digital convergen para explorar nuevas formas de expresión.",
+    "identities": [
+      {
+        "id": "helios-wave",
+        "title": "Helios Wave",
+        "genre": "PSYTRANCE · FULL ON · TWILIGHT · DARKPSY",
+        "description": "Trayectoria en la escena psytrance, con presencia constante en cabinas, raves y festivales de CABA y provincias.",
+        "path": "/helios-wave",
+        "status": "active",
+        "coverImage": "/images/helios-wave-1.jpeg",
+        "logoImage": "/images/logo-helios-wave.png"
+      },
+      {
+        "id": "vans",
+        "title": "Vans",
+        "genre": "HOUSE · GROOVE · FUNKY · DEEP",
+        "description": "Una identidad centrada en el groove, la calidez del house y la conexión orgánica con la pista de baile.",
+        "path": "/vans",
+        "status": "active",
+        "coverImage": "/images/vans-1.jpeg",
+        "logoImage": "/images/logo-vans.png"
+      },
+      {
+        "id": "sci-khole",
+        "title": "Sci-Khole",
+        "genre": "DETROIT · PEAK TIME · DRIVING · RAW · INDUSTRIAL · GROOVY · BOUNCY",
+        "description": "Una exploración del techno de raíz Detroit, combinando sonidos driving, raw, industriales, groovy y bouncy.",
+        "path": "/sci-khole",
+        "status": "upcoming",
+        "coverImage": "/images/sci-khole-1.jpeg",
+        "logoImage": "/images/logo-sci-khole.png"
+      }
+    ],
+    "vault": {
+      "title": "El Arsenal Oculto (Estudio)",
+      "description": "+30 tracks originales producidos (aprox. 10/12 por proyecto), listos para ver la luz en el momento indicado."
+    },
+    "futureModules": [
+      {
+        "id": "booking",
+        "title": "Booking & Contacto",
+        "path": "/booking"
+      },
+      {
+        "id": "games",
+        "title": "Laboratorio (Juegos / Easter Eggs)",
+        "path": "/games"
+      }
+    ]
+  }
+}
