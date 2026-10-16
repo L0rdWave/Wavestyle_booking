@@ -1058,6 +1058,48 @@ body::before {
   background: rgba(0, 255, 213, 0.08);
 }
 
+.groove-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 0.25rem 0 0.7rem;
+}
+
+.groove-tab {
+  display: grid;
+  justify-items: start;
+  gap: 0.16rem;
+  min-height: 48px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  color: #c5cad2;
+  background: rgba(255, 255, 255, 0.035);
+  font: 700 0.76rem var(--font-heading);
+  text-align: left;
+  cursor: pointer;
+}
+
+.groove-tab small {
+  color: #8993a1;
+  font: 400 0.63rem var(--font-base);
+}
+
+.groove-tab:hover,
+.groove-tab.is-selected {
+  border-color: rgba(0, 255, 213, 0.55);
+  color: var(--groove-accent);
+  background: rgba(0, 255, 213, 0.09);
+}
+
+.groove-tab.is-selected small {
+  color: #a4d9d0;
+}
+
+.groove-panel[hidden] {
+  display: none;
+}
+
 .groove-sequencer-scroll {
   overflow-x: auto;
   overscroll-behavior-inline: contain;
@@ -1072,17 +1114,48 @@ body::before {
 
 .groove-sequencer {
   display: grid;
-  min-width: 570px;
+  min-width: 1045px;
   gap: 0.5rem;
   padding: 0.25rem 0 0.8rem;
 }
 
 .groove-step-numbers,
-.groove-track {
+.groove-track,
+.groove-pitched-heading,
+.groove-pitched-row {
   display: grid;
-  grid-template-columns: 126px repeat(16, minmax(20px, 1fr));
+  grid-template-columns: 126px repeat(32, minmax(20px, 1fr));
   align-items: center;
   gap: 5px;
+}
+
+.groove-pitched-track {
+  display: grid;
+  gap: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.groove-pitched-heading {
+  grid-template-columns: 126px 1fr;
+}
+
+.groove-pitched-hint {
+  color: #7f8896;
+  font-size: 0.68rem;
+}
+
+.groove-melody-note {
+  color: #8f98a6;
+  font: 600 0.58rem var(--font-heading);
+  text-align: right;
+  padding-right: 0.45rem;
+}
+
+.groove-melody-step {
+  height: 22px;
+  min-width: 22px;
+  border-radius: 4px;
 }
 
 .groove-step-numbers span {
@@ -1093,6 +1166,11 @@ body::before {
 
 .groove-step-numbers .groove-beat-number {
   color: #aab2bf;
+}
+
+.groove-step-numbers .groove-bar-start,
+.groove-melody-step.groove-bar-start {
+  border-left: 2px solid rgba(255, 255, 255, 0.42);
 }
 
 .groove-track-controls {
@@ -1175,11 +1253,18 @@ body::before {
 .groove-track-orange { --track-accent: #ff9f55; --track-fill: #a85c25; --track-glow: rgba(255, 159, 85, 0.2); }
 .groove-track-violet { --track-accent: #dd8bff; --track-fill: #8245a0; --track-glow: rgba(221, 139, 255, 0.2); }
 .groove-track-green { --track-accent: #55e6a5; --track-fill: #287e59; --track-glow: rgba(85, 230, 165, 0.2); }
+.groove-track-gold { --track-accent: #ffe27a; --track-fill: #a8892d; --track-glow: rgba(255, 226, 122, 0.22); }
 
 .groove-track .groove-step.is-active {
   border-color: var(--track-accent);
   background: var(--track-fill);
   box-shadow: 0 0 12px var(--track-glow);
+}
+
+.groove-melody-step.is-active {
+  border-color: var(--track-accent);
+  background: var(--track-fill);
+  box-shadow: 0 0 10px var(--track-glow);
 }
 
 .groove-step.is-current {
@@ -1191,7 +1276,8 @@ body::before {
 .groove-step:focus-visible,
 .groove-play-button:focus-visible,
 .groove-utility-button:focus-visible,
-.groove-track-name:focus-visible {
+.groove-track-name:focus-visible,
+.groove-tab:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
@@ -1302,7 +1388,7 @@ body::before {
   }
 
   .groove-sequencer {
-    min-width: 670px;
+    min-width: 1045px;
   }
 
   .groove-step {
