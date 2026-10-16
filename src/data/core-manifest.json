@@ -14,8 +14,8 @@
         "description": "Trayectoria en la escena psytrance, con presencia constante en cabinas, raves y festivales de CABA y provincias.",
         "path": "/helios-wave",
         "status": "active",
-        "coverImage": "images/helios-wave-1.jpeg",
-        "logoImage": "images/logo-helios-wave.png"
+        "coverImage": "public/images/helios-wave-1.jpeg",
+        "logoImage": "public/images/logo-helios-wave.png"
       },
       {
         "id": "vans",
@@ -24,8 +24,8 @@
         "description": "Una identidad centrada en el groove, la calidez del house y la conexión orgánica con la pista de baile.",
         "path": "/vans",
         "status": "active",
-        "coverImage": "images/vans-1.jpeg",
-        "logoImage": "images/logo-vans.png"
+        "coverImage": "public/images/vans-1.jpeg",
+        "logoImage": "public/images/logo-vans.png"
       },
       {
         "id": "sci-khole",
@@ -34,8 +34,8 @@
         "description": "Una exploración del techno de raíz Detroit, combinando sonidos driving, raw, industriales, groovy y bouncy.",
         "path": "/sci-khole",
         "status": "upcoming",
-        "coverImage": "images/sci-khole-1.jpeg",
-        "logoImage": "images/logo-sci-khole.png"
+        "coverImage": "public/images/sci-khole-1.jpeg",
+        "logoImage": "public/images/logo-sci-khole.png"
       }
     ],
     "vault": {

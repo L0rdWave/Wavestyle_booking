@@ -7,7 +7,7 @@ export function renderHelios() {
 
       <header class="project-header">
         <div class="project-logo-wrapper">
-          <img src="images/logo-helios-wave.png" alt="Helios Wave Logo" class="brand-node-logo" />
+          <img src="public/images/logo-helios-wave.png" alt="Helios Wave Logo" class="brand-node-logo" />
         </div>
         <span class="project-genre"><i data-lucide="disc"></i> PSYTRANCE · FULL ON · TWILIGHT · DARKPSY</span>
         <h1>Helios Wave</h1>
@@ -39,7 +39,7 @@ export function renderHelios() {
 
           <div class="player-wrapper">
             <audio controls controlsList="nodownload noplaybackrate" class="cyber-audio-element">
-              <source src="audio/helios-wave-twilightronix.mp3" type="audio/mpeg">
+              <source src="public/audio/helios-wave-twilightronix.mp3" type="audio/mpeg">
               Tu navegador no soporta el reproductor de audio.
             </audio>
           </div>

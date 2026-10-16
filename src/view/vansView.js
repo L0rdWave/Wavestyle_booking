@@ -9,7 +9,7 @@ export function renderVans() {
 
       <header class="project-header">
         <div class="project-logo-wrapper">
-          <img src="images/logo-vans.png" alt="Vans Logo" class="brand-node-logo" />
+          <img src="public/images/logo-vans.png" alt="Vans Logo" class="brand-node-logo" />
         </div>
         <span class="project-genre"><i data-lucide="disc"></i> HOUSE · GROOVE · FUNKY · DEEP</span>
         <h1>Vans</h1>
@@ -39,7 +39,7 @@ export function renderVans() {
 
           <div class="player-wrapper">
             <audio controls controlsList="nodownload noplaybackrate" class="cyber-audio-element">
-              <source src="audio/vans-take-you-higher.mp3" type="audio/mpeg">
+              <source src="public/audio/vans-take-you-higher.mp3" type="audio/mpeg">
               Tu navegador no soporta el reproductor de audio.
             </audio>
           </div>

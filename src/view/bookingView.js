@@ -47,7 +47,7 @@ export function renderBooking() {
           </p>
           
           <div style="margin-top: 1.2rem;">
-            <a href="downloads/wavestyle-presskit.zip" download class="counter" style="display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; padding: 0.8rem 1.4rem;">
+            <a href="public/downloads/wavestyle-presskit.zip" download class="counter" style="display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; padding: 0.8rem 1.4rem;">
               <i data-lucide="file-archive"></i> Descargar Press Kit Oficial (.ZIP)
             </a>
           </div>
