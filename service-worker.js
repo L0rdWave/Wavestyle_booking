@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wavestyle-source-v2';
+const CACHE_NAME = 'wavestyle-source-v3';
 const CACHE_PREFIX = 'wavestyle-source-';
 const APP_BASE = '/Wavestyle_booking/';
 const ESSENTIAL_URLS = [

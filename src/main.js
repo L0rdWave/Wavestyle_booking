@@ -5,8 +5,8 @@ import { renderVans } from './view/vansView.js?v=20261015-2230';
 import { renderSciKhole } from './view/sciKholeView.js';
 import { renderBooking } from './view/bookingView.js?v=20261015-2230';
 import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=groovebox-keys-20261016';
-import { renderNightlifeView } from './view/nightlifeView.js';
-import { renderNightlifeProposalView } from './view/nightlifeProposalView.js';
+import { renderNightlifeView } from './view/nightlifeView.js?v=nightlife-env-fallback-20261016';
+import { renderNightlifeProposalView } from './view/nightlifeProposalView.js?v=nightlife-env-fallback-20261016';
 import { initPwaInstall } from './pwa.js';
 
 const app = document.getElementById('app');
@@ -86,7 +86,7 @@ const appBaseUrl = viteEnvironment.BASE_URL ?? '/Wavestyle_booking/';
 
 if (isProduction && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(`${appBaseUrl}service-worker.js?v=source-fix1`)
+    navigator.serviceWorker.register(`${appBaseUrl}service-worker.js?v=source-fix2`)
       .catch(error => console.error('No se pudo preparar Wavestyle para uso sin conexión:', error));
   }, { once: true });
 }
