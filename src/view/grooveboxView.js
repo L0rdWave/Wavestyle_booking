@@ -380,6 +380,14 @@ export function initGroovebox(root) {
         throw new Error('Este navegador no tiene soporte para Web Audio.');
       }
 
+      if (navigator.audioSession && navigator.audioSession.type !== 'playback') {
+        try {
+          navigator.audioSession.type = 'playback';
+        } catch (error) {
+          console.warn('No se pudo configurar la sesión de audio de reproducción:', error);
+        }
+      }
+
       audioContext = new AudioContextConstructor();
       audioContext.addEventListener('statechange', handleAudioStateChange);
       masterGain = audioContext.createGain();
