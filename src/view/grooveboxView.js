@@ -29,7 +29,7 @@ export function renderGroovebox() {
         <div class="groovebox-topline">
           <div>
             <span class="groovebox-eyebrow">WAVESTYLE / SEQUENCER 01</span>
-            <p class="groovebox-hint">Tocá los pads para escuchar. Activá pasos y dale Play.</p>
+            <p class="groovebox-hint">Tocá o arrastrá por los casilleros para dibujar el ritmo. Cada fila es un sonido.</p>
           </div>
           <span class="groovebox-live"><span aria-hidden="true"></span> AUDIO LOCAL</span>
         </div>
@@ -83,7 +83,7 @@ export function renderGroovebox() {
                     data-action="step"
                     data-track="${track.id}"
                     data-step="${index}"
-                    aria-label="${track.detail}, paso ${index + 1}"
+                    aria-label="${track.detail}, paso ${index + 1}; tocar para activar o desactivar"
                     aria-pressed="${initialPattern[track.id].includes(index)}"
                   ></button>
                 `).join('')}
@@ -127,6 +127,8 @@ export function initGroovebox(root) {
   let nextStepAt = 0;
   let nextStepIndex = 0;
   let isPlaying = false;
+  let drawingPointerId = null;
+  let drawingActive = false;
   const visualTimers = new Set();
 
   function setStatus(message, isError = false) {
@@ -320,6 +322,30 @@ export function initGroovebox(root) {
     pattern[button.dataset.track][Number(button.dataset.step)] = isActive;
   }
 
+  function getStepButton(target) {
+    return target instanceof Element ? target.closest('button[data-action="step"]') : null;
+  }
+
+  function startDrawing(event) {
+    const button = getStepButton(event.target);
+    if (!button || !event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+
+    drawingPointerId = event.pointerId;
+    drawingActive = button.getAttribute('aria-pressed') !== 'true';
+    updateStepButton(button, drawingActive);
+    setStatus('Dibujando patrón. Arrastrá por los pasos que quieras activar o borrar.');
+  }
+
+  function continueDrawing(event) {
+    if (event.pointerId !== drawingPointerId) return;
+    const button = getStepButton(event.target);
+    if (button) updateStepButton(button, drawingActive);
+  }
+
+  function stopDrawing(event) {
+    if (event.pointerId === drawingPointerId) drawingPointerId = null;
+  }
+
   function showAudioError(error) {
     console.error('No se pudo iniciar el audio de la groovebox:', error);
     setStatus(error instanceof Error ? error.message : 'No se pudo iniciar el audio. Probá de nuevo.', true);
@@ -332,6 +358,7 @@ export function initGroovebox(root) {
 
     const { action, track } = button.dataset;
     if (action === 'step') {
+      if (event.detail > 0) return;
       updateStepButton(button, button.getAttribute('aria-pressed') !== 'true');
       return;
     }
@@ -384,6 +411,10 @@ export function initGroovebox(root) {
   }
 
   root.addEventListener('click', handleClick);
+  root.addEventListener('pointerdown', startDrawing);
+  root.addEventListener('pointerover', continueDrawing);
+  window.addEventListener('pointerup', stopDrawing);
+  window.addEventListener('pointercancel', stopDrawing);
 
   tempoInput.addEventListener('input', () => {
     tempoValue.value = tempoInput.value;
@@ -399,6 +430,10 @@ export function initGroovebox(root) {
   return () => {
     stopPlayback();
     root.removeEventListener('click', handleClick);
+    root.removeEventListener('pointerdown', startDrawing);
+    root.removeEventListener('pointerover', continueDrawing);
+    window.removeEventListener('pointerup', stopDrawing);
+    window.removeEventListener('pointercancel', stopDrawing);
     if (audioContext && audioContext.state !== 'closed') {
       void audioContext.close();
     }

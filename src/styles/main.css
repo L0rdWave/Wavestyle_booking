@@ -892,7 +892,7 @@ body::before {
 
 .groovebox-hint {
   margin: 0.45rem 0 0;
-  color: var(--text-muted);
+  color: #c1c8d2;
   font-size: 0.88rem;
   line-height: 1.5;
 }
@@ -1022,6 +1022,10 @@ body::before {
   scrollbar-width: thin;
 }
 
+.groove-step-numbers {
+  touch-action: pan-x;
+}
+
 .groove-sequencer {
   display: grid;
   min-width: 570px;
@@ -1073,14 +1077,15 @@ body::before {
   padding: 0;
   border: 1px solid #303540;
   border-radius: 6px;
-  background: #1b1e26;
+  background: #242832;
   cursor: pointer;
-  touch-action: manipulation;
+  touch-action: none;
   transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .groove-step:hover {
   border-color: #8993a1;
+  background: #353b47;
   transform: translateY(-1px);
 }
 
