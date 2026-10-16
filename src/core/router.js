@@ -1,5 +1,3 @@
-import manifest from '../data/core-manifest.json';
-
 export function initRouter(renderCallback) {
   function handleRoute() {
     const path = window.location.hash.slice(1) || '/';

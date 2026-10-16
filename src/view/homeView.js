@@ -1,4 +1,4 @@
-import manifest from '../data/core-manifest.json';
+import manifest from '../data/core-manifest.json' with { type: 'json' };
 import { renderLogo } from '../components/Logo.js';
 
 export function renderHome() {

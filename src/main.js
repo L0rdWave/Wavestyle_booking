@@ -5,7 +5,6 @@ import { renderHelios } from './view/heliosView.js';
 import { renderVans } from './view/vansView.js';
 import { renderSciKhole } from './view/sciKholeView.js';
 import { renderBooking } from './view/bookingView.js';
-import './styles/main.css';
 
 const app = document.getElementById('app');
 
