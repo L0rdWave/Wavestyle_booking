@@ -1079,7 +1079,7 @@ body::before {
   border-radius: 6px;
   background: #242832;
   cursor: pointer;
-  touch-action: none;
+  touch-action: manipulation;
   transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
 }
 

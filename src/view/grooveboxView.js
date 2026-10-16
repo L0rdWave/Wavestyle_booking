@@ -130,6 +130,7 @@ export function initGroovebox(root) {
   let drawingPointerId = null;
   let drawingActive = false;
   let suppressPointerStepClick = false;
+  const stepClickHandlers = new Map();
   const visualTimers = new Set();
 
   function setStatus(message, isError = false) {
@@ -348,6 +349,20 @@ export function initGroovebox(root) {
     if (event.pointerId === drawingPointerId) drawingPointerId = null;
   }
 
+  function handleStepClick(event) {
+    if (suppressPointerStepClick && event.detail > 0) {
+      suppressPointerStepClick = false;
+      return;
+    }
+
+    const button = event.currentTarget;
+    const isActive = button.getAttribute('aria-pressed') !== 'true';
+    updateStepButton(button, isActive);
+    const trackName = tracks.find(track => track.id === button.dataset.track).detail;
+    const stepNumber = Number(button.dataset.step) + 1;
+    setStatus(`${trackName}, paso ${stepNumber}: ${isActive ? 'activado' : 'desactivado'}.`);
+  }
+
   function showAudioError(error) {
     console.error('No se pudo iniciar el audio de la groovebox:', error);
     setStatus(error instanceof Error ? error.message : 'No se pudo iniciar el audio. Probá de nuevo.', true);
@@ -359,15 +374,6 @@ export function initGroovebox(root) {
     if (!button) return;
 
     const { action, track } = button.dataset;
-    if (action === 'step') {
-      if (event.detail > 0 && suppressPointerStepClick) {
-        suppressPointerStepClick = false;
-        return;
-      }
-      updateStepButton(button, button.getAttribute('aria-pressed') !== 'true');
-      return;
-    }
-
     if (action === 'random') {
       trackIds.forEach(trackId => {
         const buttons = root.querySelectorAll(`[data-track="${trackId}"][data-action="step"]`);
@@ -415,6 +421,10 @@ export function initGroovebox(root) {
     }
   }
 
+  root.querySelectorAll('button[data-action="step"]').forEach(button => {
+    stepClickHandlers.set(button, handleStepClick);
+    button.addEventListener('click', handleStepClick);
+  });
   root.addEventListener('click', handleClick);
   root.addEventListener('pointerdown', startDrawing);
   root.addEventListener('pointerover', continueDrawing);
@@ -434,6 +444,8 @@ export function initGroovebox(root) {
 
   return () => {
     stopPlayback();
+    stepClickHandlers.forEach((handler, button) => button.removeEventListener('click', handler));
+    stepClickHandlers.clear();
     root.removeEventListener('click', handleClick);
     root.removeEventListener('pointerdown', startDrawing);
     root.removeEventListener('pointerover', continueDrawing);
