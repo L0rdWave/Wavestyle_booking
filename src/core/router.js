@@ -17,6 +17,7 @@ export function initRouter(renderCallback) {
     }
 
     renderCallback(path);
+    window.scrollTo(0, 0);
   }
 
   window.addEventListener('hashchange', handleRoute);
