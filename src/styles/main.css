@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@700&display=swap');
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --bg-primary: #070709;
   --bg-card: #121217;
@@ -40,9 +46,11 @@ body {
 
 #app {
   min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 2rem;
 }
@@ -50,16 +58,19 @@ body {
 .motherboard-container {
   max-width: 1000px;
   width: 100%;
+  min-width: 0;
   text-align: center;
 }
 
 .hub-header h1 {
   font-family: 'Syncopate', sans-serif;
-  font-size: 3.5rem;
+  font-size: clamp(1.75rem, 8vw, 3.5rem);
+  line-height: 1.15;
   margin-bottom: 0.5rem;
-  letter-spacing: 3px;
+  letter-spacing: clamp(0.04em, 0.7vw, 3px);
   color: var(--text-main);
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .hero-banner-wrapper {
@@ -306,6 +317,54 @@ body {
 .hub-footer .wavestyle-brand-logo {
   margin: 0;
 }
+
+.wavestyle-brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.wavestyle-brand-logo .w-symbol {
+  display: block;
+  width: clamp(3rem, 12vw, 4.5rem);
+  height: auto;
+  flex: 0 0 auto;
+}
+
+.wavestyle-brand-logo .logo-text {
+  color: var(--text-main);
+  font-family: 'Syncopate', sans-serif;
+  font-size: clamp(0.8rem, 4vw, 1.15rem);
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.wavestyle-brand-logo .logo-text span {
+  color: var(--accent);
+}
+
+.header-metadata {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.social-link-discrete {
+  color: var(--accent);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.social-link-discrete:hover {
+  color: var(--text-main);
+}
+
 .project-container {
   max-width: 800px;
   width: 100%;
@@ -351,7 +410,9 @@ body {
 
 .project-header h1 {
   font-family: 'Syncopate', sans-serif;
-  font-size: 2.8rem;
+  font-size: clamp(1.7rem, 7vw, 2.8rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
   margin: 0 0 0.5rem 0;
   color: var(--text-main);
 }
@@ -436,12 +497,149 @@ body {
 }
 
 @media (max-width: 640px) {
-  .hero-banner-wrapper {
-    aspect-ratio: 16 / 9;
+  #app {
+    padding: 1rem;
   }
 
   .hub-header {
-    padding: 1.5rem 1rem;
+    margin: 1rem auto 1.5rem;
+    padding: 1.25rem 0.9rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+
+  .concept-phrase {
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .header-metadata {
+    gap: 0.75rem;
+  }
+
+  .arch-badge,
+  .social-link-discrete {
+    max-width: 100%;
+    font-size: 0.85rem;
+  }
+
+  .bio-section {
+    padding: 0 0.25rem;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .identities-grid > h2,
+  .expansion-section > h2 {
+    font-size: 1.35rem;
+    line-height: 1.3;
+  }
+
+  .grid {
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .card-banner {
+    height: 220px;
+  }
+
+  .card-body {
+    padding: 1.15rem;
+  }
+
+  .genre-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+  }
+
+  .vault-panel {
+    padding: 1.15rem;
+  }
+
+  .hub-footer {
+    max-width: 100%;
+    padding: 1.5rem 0.25rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  .project-container {
+    min-width: 0;
+  }
+
+  .project-header {
+    margin-bottom: 2rem;
+  }
+
+  .project-genre {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .audio-player-card {
+    padding: 1rem;
+  }
+
+  .track-info {
+    gap: 0.75rem;
+  }
+
+  .track-details {
+    min-width: 0;
+  }
+
+  .badge-preview {
+    flex: 0 0 auto;
+  }
+
+  .hero-banner-wrapper {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 360px) {
+  .hub-header h1 {
+    font-size: clamp(1.5rem, 8vw, 1.75rem);
+  }
+
+  .wavestyle-brand-logo {
+    gap: 0.5rem;
+  }
+
+  .wavestyle-brand-logo .w-symbol {
+    width: 2.5rem;
+  }
+
+  .wavestyle-brand-logo .logo-text {
+    font-size: 0.75rem;
+  }
+}
+
+@media (pointer: coarse) {
+  body,
+  a,
+  button,
+  .identity-card,
+  .contact-card {
+    cursor: auto;
+  }
+
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none;
   }
 }
 /* Custom Cursor Style */
