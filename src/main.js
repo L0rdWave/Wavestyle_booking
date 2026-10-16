@@ -4,7 +4,7 @@ import { renderHelios } from './view/heliosView.js?v=20261015-2230';
 import { renderVans } from './view/vansView.js?v=20261015-2230';
 import { renderSciKhole } from './view/sciKholeView.js';
 import { renderBooking } from './view/bookingView.js?v=20261015-2230';
-import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=groovebox-ios-audio-20261015';
+import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=groovebox-genre-presets-20261016';
 
 const app = document.getElementById('app');
 let cleanupGroovebox = () => {};

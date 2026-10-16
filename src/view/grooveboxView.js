@@ -4,6 +4,11 @@ const tracks = [
   { id: 'snare', name: 'SNARE', detail: 'Caja', color: 'purple' },
   { id: 'hat', name: 'HAT', detail: 'Hi-hat', color: 'amber' },
   { id: 'clap', name: 'CLAP', detail: 'Aplauso', color: 'pink' },
+  { id: 'openhat', name: 'OPEN HAT', detail: 'Hi-hat abierto', color: 'blue' },
+  { id: 'rimshot', name: 'RIM', detail: 'Rimshot', color: 'red' },
+  { id: 'lowtom', name: 'LOW TOM', detail: 'Tom grave', color: 'orange' },
+  { id: 'hitom', name: 'HIGH TOM', detail: 'Tom agudo', color: 'violet' },
+  { id: 'cowbell', name: 'COWBELL', detail: 'Cencerro', color: 'green' },
 ];
 
 const initialPattern = {
@@ -12,6 +17,62 @@ const initialPattern = {
   snare: [4, 12],
   hat: [2, 6, 10, 14],
   clap: [6, 14],
+  openhat: [6, 14],
+  rimshot: [],
+  lowtom: [12, 15],
+  hitom: [7, 15],
+  cowbell: [2, 10],
+};
+
+const genrePresets = {
+  house: {
+    name: 'Funky House',
+    bpm: 124,
+    pattern: {
+      kick: [0, 4, 8, 12],
+      bass: [2, 5, 6, 10, 13, 14],
+      snare: [12],
+      hat: [2, 6, 10, 14],
+      clap: [4, 12],
+      openhat: [3, 7, 11, 15],
+      rimshot: [6, 14],
+      lowtom: [15],
+      hitom: [7],
+      cowbell: [2, 10],
+    },
+  },
+  techno: {
+    name: 'Raw Techno',
+    bpm: 132,
+    pattern: {
+      kick: [0, 4, 8, 12],
+      bass: [2, 6, 10, 14],
+      snare: [12],
+      hat: [2, 6, 10, 14],
+      clap: [4, 12],
+      openhat: [7, 15],
+      rimshot: [4, 12],
+      lowtom: [3, 11],
+      hitom: [7, 15],
+      cowbell: [6, 14],
+    },
+  },
+  psytrance: {
+    name: 'Full-on Uplifting',
+    bpm: 145,
+    pattern: {
+      kick: [0, 4, 8, 12],
+      bass: [2, 6, 10, 14],
+      snare: [4, 12],
+      hat: [2, 6, 10, 14],
+      clap: [],
+      openhat: [3, 7, 11, 15],
+      rimshot: [7, 15],
+      lowtom: [12],
+      hitom: [3, 11],
+      cowbell: [6, 14],
+    },
+  },
 };
 
 const bassNotes = [110, 110, 130.81, 110, 146.83, 110, 164.81, 130.81, 98, 110, 130.81, 146.83, 110, 130.81, 164.81, 130.81];
@@ -68,18 +129,40 @@ export function renderGroovebox() {
           </div>
         </div>
 
+        <div class="groove-presets" role="group" aria-label="Plantillas de género">
+          <span class="groove-control-label">TEMPLATES</span>
+          <div class="groove-preset-buttons">
+            <button type="button" class="groove-preset-button" data-action="preset" data-preset="house" aria-pressed="false">
+              <span>House</span><small>Funky · 124 BPM</small>
+            </button>
+            <button type="button" class="groove-preset-button" data-action="preset" data-preset="techno" aria-pressed="false">
+              <span>Techno</span><small>Raw · 132 BPM</small>
+            </button>
+            <button type="button" class="groove-preset-button" data-action="preset" data-preset="psytrance" aria-pressed="false">
+              <span>Psytrance</span><small>Full-on · 145 BPM</small>
+            </button>
+          </div>
+        </div>
+
         <div class="groove-sequencer-scroll" role="region" aria-label="Secuenciador de 16 pasos; desplazá horizontalmente en pantallas chicas" tabindex="0">
           <div class="groove-sequencer">
             <div class="groove-step-numbers" aria-hidden="true">
-              <span></span>
+              <span>PISTA / VOL</span>
               ${Array.from({ length: 16 }, (_, index) => `<span class="${index % 4 === 0 ? 'groove-beat-number' : ''}">${String(index + 1).padStart(2, '0')}</span>`).join('')}
             </div>
             ${tracks.map(track => `
               <div class="groove-track groove-track-${track.id} groove-track-${track.color}" data-track-row="${track.id}">
-                <button class="groove-track-name" type="button" data-action="preview" data-track="${track.id}" aria-label="Escuchar ${track.detail}">
-                  <span>${track.name}</span>
-                  <small>${track.detail}</small>
-                </button>
+                <div class="groove-track-controls">
+                  <button class="groove-track-name" type="button" data-action="preview" data-track="${track.id}" aria-label="Escuchar ${track.detail}">
+                    <span>${track.name}</span>
+                    <small>${track.detail}</small>
+                  </button>
+                  <label class="groove-track-volume">
+                    <span>VOL</span>
+                    <input type="range" min="0" max="100" value="100" step="1" data-track-volume="${track.id}" aria-label="Volumen de ${track.detail}">
+                    <output data-track-volume-value="${track.id}">100</output>
+                  </label>
+                </div>
                 ${Array.from({ length: 16 }, (_, index) => `
                   <button
                     type="button"
@@ -122,11 +205,16 @@ export function initGroovebox(root) {
   const tempoInput = root.querySelector('[data-control="tempo"]');
   const tempoValue = root.querySelector('[data-tempo-value]');
   const volumeInput = root.querySelector('[data-control="volume"]');
+  const trackVolumeInputs = Object.fromEntries(
+    Array.from(root.querySelectorAll('[data-track-volume]'))
+      .map(input => [input.dataset.trackVolume, input]),
+  );
   const status = root.querySelector('[data-status]');
   const stepReadout = root.querySelector('[data-step-readout]');
 
   let audioContext;
   let masterGain;
+  let trackGains = {};
   let noiseBuffer;
   let audioUnlockPromise;
   let schedulerId;
@@ -152,7 +240,20 @@ export function initGroovebox(root) {
       audioContext = new AudioContextConstructor();
       masterGain = audioContext.createGain();
       masterGain.gain.value = Number(volumeInput.value) / 100;
-      masterGain.connect(audioContext.destination);
+      const compressor = audioContext.createDynamicsCompressor();
+      compressor.threshold.value = -12;
+      compressor.knee.value = 3;
+      compressor.ratio.value = 12;
+      compressor.attack.value = 0.003;
+      compressor.release.value = 0.12;
+      masterGain.connect(compressor);
+      compressor.connect(audioContext.destination);
+      trackGains = Object.fromEntries(trackIds.map(trackId => {
+        const gain = audioContext.createGain();
+        gain.gain.value = Number(trackVolumeInputs[trackId].value) / 100;
+        gain.connect(masterGain);
+        return [trackId, gain];
+      }));
 
       noiseBuffer = audioContext.createBuffer(1, audioContext.sampleRate, audioContext.sampleRate);
       const samples = noiseBuffer.getChannelData(0);
@@ -206,7 +307,7 @@ export function initGroovebox(root) {
     gain.gain.exponentialRampToValueAtTime(0.9, time + 0.006);
     gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.24);
     oscillator.connect(gain);
-    gain.connect(masterGain);
+    gain.connect(trackGains.kick);
     oscillator.start(time);
     oscillator.stop(time + 0.25);
   }
@@ -228,7 +329,7 @@ export function initGroovebox(root) {
 
     oscillator.connect(filter);
     filter.connect(gain);
-    gain.connect(masterGain);
+    gain.connect(trackGains.bass);
     oscillator.start(time);
     oscillator.stop(time + 0.23);
   }
@@ -248,7 +349,7 @@ export function initGroovebox(root) {
     noiseGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.18);
     noise.connect(filter);
     filter.connect(noiseGain);
-    noiseGain.connect(masterGain);
+    noiseGain.connect(trackGains.snare);
     noise.start(time);
     noise.stop(time + 0.19);
 
@@ -258,7 +359,7 @@ export function initGroovebox(root) {
     toneGain.gain.exponentialRampToValueAtTime(0.22, time + 0.004);
     toneGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.12);
     tone.connect(toneGain);
-    toneGain.connect(masterGain);
+    toneGain.connect(trackGains.snare);
     tone.start(time);
     tone.stop(time + 0.13);
   }
@@ -275,30 +376,143 @@ export function initGroovebox(root) {
     gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.055);
     noise.connect(filter);
     filter.connect(gain);
-    gain.connect(masterGain);
+    gain.connect(trackGains.hat);
     noise.start(time);
     noise.stop(time + 0.06);
   }
 
   function playClap(time) {
+    const bursts = [
+      { offset: 0, peak: 0.28, duration: 0.035 },
+      { offset: 0.012, peak: 0.23, duration: 0.04 },
+      { offset: 0.026, peak: 0.19, duration: 0.05 },
+      { offset: 0.043, peak: 0.14, duration: 0.12 },
+    ];
+
+    bursts.forEach(({ offset, peak, duration }) => {
+      const burstAt = time + offset;
+      const noise = audioContext.createBufferSource();
+      const highpass = audioContext.createBiquadFilter();
+      const body = audioContext.createBiquadFilter();
+      const gain = audioContext.createGain();
+
+      noise.buffer = noiseBuffer;
+      highpass.type = 'highpass';
+      highpass.frequency.value = 520;
+      body.type = 'bandpass';
+      body.frequency.value = 1650;
+      body.Q.value = 0.75;
+      gain.gain.setValueAtTime(0.0001, burstAt);
+      gain.gain.exponentialRampToValueAtTime(peak, burstAt + 0.002);
+      gain.gain.exponentialRampToValueAtTime(0.0001, burstAt + duration);
+      noise.connect(highpass);
+      highpass.connect(body);
+      body.connect(gain);
+      gain.connect(trackGains.clap);
+      noise.start(burstAt);
+      noise.stop(burstAt + duration + 0.005);
+    });
+  }
+
+  function playOpenHat(time) {
     const noise = audioContext.createBufferSource();
-    const filter = audioContext.createBiquadFilter();
+    const highpass = audioContext.createBiquadFilter();
+    const body = audioContext.createBiquadFilter();
     const gain = audioContext.createGain();
     noise.buffer = noiseBuffer;
-    filter.type = 'bandpass';
-    filter.frequency.value = 1200;
-    filter.Q.value = 0.8;
-    for (let burst = 0; burst < 3; burst += 1) {
-      const burstAt = time + burst * 0.022;
-      gain.gain.setValueAtTime(0.0001, burstAt);
-      gain.gain.exponentialRampToValueAtTime(0.23, burstAt + 0.003);
-      gain.gain.exponentialRampToValueAtTime(0.0001, burstAt + 0.045);
-    }
-    noise.connect(filter);
-    filter.connect(gain);
-    gain.connect(masterGain);
+    highpass.type = 'highpass';
+    highpass.frequency.value = 6200;
+    body.type = 'peaking';
+    body.frequency.value = 9000;
+    body.gain.value = 2;
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.exponentialRampToValueAtTime(0.2, time + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.32);
+    noise.connect(highpass);
+    highpass.connect(body);
+    body.connect(gain);
+    gain.connect(trackGains.openhat);
     noise.start(time);
-    noise.stop(time + 0.12);
+    noise.stop(time + 0.33);
+  }
+
+  function playRimshot(time) {
+    const noise = audioContext.createBufferSource();
+    const highpass = audioContext.createBiquadFilter();
+    const noiseGain = audioContext.createGain();
+    const tone = audioContext.createOscillator();
+    const toneGain = audioContext.createGain();
+
+    noise.buffer = noiseBuffer;
+    highpass.type = 'highpass';
+    highpass.frequency.value = 2800;
+    noiseGain.gain.setValueAtTime(0.0001, time);
+    noiseGain.gain.exponentialRampToValueAtTime(0.32, time + 0.001);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.045);
+    noise.connect(highpass);
+    highpass.connect(noiseGain);
+    noiseGain.connect(trackGains.rimshot);
+    noise.start(time);
+    noise.stop(time + 0.05);
+
+    tone.type = 'triangle';
+    tone.frequency.setValueAtTime(1850, time);
+    tone.frequency.exponentialRampToValueAtTime(720, time + 0.035);
+    toneGain.gain.setValueAtTime(0.0001, time);
+    toneGain.gain.exponentialRampToValueAtTime(0.42, time + 0.001);
+    toneGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.055);
+    tone.connect(toneGain);
+    toneGain.connect(trackGains.rimshot);
+    tone.start(time);
+    tone.stop(time + 0.06);
+  }
+
+  function playTom(time, frequency, output) {
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency * 1.8, time);
+    oscillator.frequency.exponentialRampToValueAtTime(frequency, time + 0.08);
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.exponentialRampToValueAtTime(0.48, time + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.24);
+    oscillator.connect(gain);
+    gain.connect(output);
+    oscillator.start(time);
+    oscillator.stop(time + 0.25);
+  }
+
+  function playLowTom(time) {
+    playTom(time, 92, trackGains.lowtom);
+  }
+
+  function playHighTom(time) {
+    playTom(time, 185, trackGains.hitom);
+  }
+
+  function playCowbell(time) {
+    const first = audioContext.createOscillator();
+    const second = audioContext.createOscillator();
+    const highpass = audioContext.createBiquadFilter();
+    const gain = audioContext.createGain();
+
+    first.type = 'square';
+    first.frequency.value = 587;
+    second.type = 'square';
+    second.frequency.value = 845;
+    highpass.type = 'highpass';
+    highpass.frequency.value = 400;
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.exponentialRampToValueAtTime(0.18, time + 0.003);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.2);
+    first.connect(highpass);
+    second.connect(highpass);
+    highpass.connect(gain);
+    gain.connect(trackGains.cowbell);
+    first.start(time);
+    second.start(time);
+    first.stop(time + 0.21);
+    second.stop(time + 0.21);
   }
 
   const soundByTrack = {
@@ -307,6 +521,11 @@ export function initGroovebox(root) {
     snare: playSnare,
     hat: playHat,
     clap: playClap,
+    openhat: playOpenHat,
+    rimshot: playRimshot,
+    lowtom: playLowTom,
+    hitom: playHighTom,
+    cowbell: playCowbell,
   };
 
   function setPlayhead(step, delay) {
@@ -375,6 +594,31 @@ export function initGroovebox(root) {
     pattern[button.dataset.track][Number(button.dataset.step)] = isActive;
   }
 
+  function updatePresetSelection(presetId = '') {
+    root.querySelectorAll('[data-action="preset"]').forEach(button => {
+      const isSelected = button.dataset.preset === presetId;
+      button.classList.toggle('is-selected', isSelected);
+      button.setAttribute('aria-pressed', String(isSelected));
+    });
+  }
+
+  function applyGenrePreset(presetId) {
+    const preset = genrePresets[presetId];
+    if (!preset) return;
+
+    trackIds.forEach(trackId => {
+      const activeSteps = new Set(preset.pattern[trackId]);
+      root.querySelectorAll(`[data-track="${trackId}"][data-action="step"]`).forEach(button => {
+        updateStepButton(button, activeSteps.has(Number(button.dataset.step)));
+      });
+    });
+
+    tempoInput.value = String(preset.bpm);
+    tempoInput.dispatchEvent(new Event('input', { bubbles: true }));
+    updatePresetSelection(presetId);
+    setStatus(`Template ${preset.name} aplicado a ${preset.bpm} BPM. Podés editar los pasos y el tempo.`);
+  }
+
   function getStepButton(target) {
     return target instanceof Element ? target.closest('button[data-action="step"]') : null;
   }
@@ -388,6 +632,7 @@ export function initGroovebox(root) {
     }
     drawingPointerId = event.pointerId;
     drawingActive = button.getAttribute('aria-pressed') !== 'true';
+    updatePresetSelection();
     updateStepButton(button, drawingActive);
     const trackName = tracks.find(track => track.id === button.dataset.track).detail;
     const stepNumber = Number(button.dataset.step) + 1;
@@ -418,13 +663,19 @@ export function initGroovebox(root) {
     if (action === 'step') {
       if (event.detail === 0) {
         const isActive = button.getAttribute('aria-pressed') !== 'true';
+        updatePresetSelection();
         updateStepButton(button, isActive);
         const trackName = tracks.find(item => item.id === track).detail;
         setStatus(`${trackName}, paso ${Number(button.dataset.step) + 1}: ${isActive ? 'activado' : 'desactivado'}.`);
       }
       return;
     }
+    if (action === 'preset') {
+      applyGenrePreset(button.dataset.preset);
+      return;
+    }
     if (action === 'random') {
+      updatePresetSelection();
       trackIds.forEach(trackId => {
         const buttons = root.querySelectorAll(`[data-track="${trackId}"][data-action="step"]`);
         buttons.forEach(stepButton => {
@@ -433,7 +684,13 @@ export function initGroovebox(root) {
             ? step % 4 === 0 || Math.random() > 0.84
             : trackId === 'bass'
               ? step % 4 === 0 || Math.random() > 0.78
-              : Math.random() > (trackId === 'hat' ? 0.48 : 0.76);
+              : Math.random() > (
+                trackId === 'hat' ? 0.48
+                  : trackId === 'openhat' ? 0.82
+                    : trackId === 'rimshot' ? 0.9
+                      : trackId === 'lowtom' || trackId === 'hitom' || trackId === 'cowbell' ? 0.88
+                        : 0.76
+              );
           updateStepButton(stepButton, active);
         });
       });
@@ -442,6 +699,7 @@ export function initGroovebox(root) {
     }
 
     if (action === 'clear') {
+      updatePresetSelection();
       root.querySelectorAll('.groove-step').forEach(stepButton => updateStepButton(stepButton, false));
       setStatus('Secuenciador limpio. Armá tu ritmo.');
       return;
@@ -484,6 +742,7 @@ export function initGroovebox(root) {
   tempoInput.addEventListener('input', () => {
     tempoValue.value = tempoInput.value;
     tempoValue.textContent = tempoInput.value;
+    updatePresetSelection();
   });
 
   volumeInput.addEventListener('input', () => {
@@ -492,12 +751,28 @@ export function initGroovebox(root) {
     }
   });
 
+  function updateTrackVolume(event) {
+    const input = event.target;
+    if (!(input instanceof HTMLInputElement) || !input.matches('[data-track-volume]')) return;
+    const trackId = input.dataset.trackVolume;
+    const value = Number(input.value);
+    const output = root.querySelector(`[data-track-volume-value="${trackId}"]`);
+    output.value = String(value);
+    output.textContent = String(value);
+    if (trackGains[trackId] && audioContext) {
+      trackGains[trackId].gain.setTargetAtTime(value / 100, audioContext.currentTime, 0.015);
+    }
+  }
+
+  root.addEventListener('input', updateTrackVolume);
+
   const cleanup = () => {
     stopPlayback();
     root.removeEventListener('click', handleClick);
     root.removeEventListener('pointerdown', primeAudioFromGesture);
     root.removeEventListener('pointerdown', startDrawing);
     root.removeEventListener('pointermove', continueDrawing);
+    root.removeEventListener('input', updateTrackVolume);
     window.removeEventListener('pointerup', stopDrawing);
     window.removeEventListener('pointercancel', stopDrawing);
     if (audioContext && audioContext.state !== 'closed') {

@@ -928,6 +928,50 @@ body::before {
   background: rgba(255, 255, 255, 0.025);
 }
 
+.groove-presets {
+  display: grid;
+  gap: 0.55rem;
+  margin: -0.35rem 0 1.1rem;
+}
+
+.groove-preset-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.groove-preset-button {
+  display: grid;
+  justify-items: start;
+  gap: 0.22rem;
+  min-height: 52px;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  color: #dce2e9;
+  background: rgba(255, 255, 255, 0.035);
+  font: 700 0.75rem var(--font-heading);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.groove-preset-button small {
+  color: #8993a1;
+  font: 400 0.65rem var(--font-base);
+}
+
+.groove-preset-button:hover,
+.groove-preset-button.is-selected {
+  border-color: rgba(0, 255, 213, 0.55);
+  color: var(--groove-accent);
+  background: rgba(0, 255, 213, 0.09);
+}
+
+.groove-preset-button.is-selected small {
+  color: #a4d9d0;
+}
+
 .groove-play-button,
 .groove-utility-button {
   display: inline-flex;
@@ -1036,7 +1080,7 @@ body::before {
 .groove-step-numbers,
 .groove-track {
   display: grid;
-  grid-template-columns: 76px repeat(16, minmax(20px, 1fr));
+  grid-template-columns: 126px repeat(16, minmax(20px, 1fr));
   align-items: center;
   gap: 5px;
 }
@@ -1049,6 +1093,12 @@ body::before {
 
 .groove-step-numbers .groove-beat-number {
   color: #aab2bf;
+}
+
+.groove-track-controls {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
 }
 
 .groove-track-name {
@@ -1067,6 +1117,30 @@ body::before {
 .groove-track-name small {
   color: #7f8896;
   font: 400 0.62rem var(--font-base);
+}
+
+.groove-track-volume {
+  display: grid;
+  grid-template-columns: auto minmax(28px, 1fr) 1.4rem;
+  align-items: center;
+  gap: 0.25rem;
+  color: #717b89;
+  font: 600 0.52rem var(--font-heading);
+  letter-spacing: 0.04em;
+}
+
+.groove-track-volume input {
+  width: 100%;
+  min-width: 0;
+  height: 14px;
+  accent-color: var(--track-accent);
+  cursor: pointer;
+}
+
+.groove-track-volume output {
+  color: #aeb6c2;
+  font: 600 0.55rem var(--font-heading);
+  text-align: right;
 }
 
 .groove-step {
@@ -1091,34 +1165,21 @@ body::before {
   transform: translateY(-1px);
 }
 
-.groove-track-cyan .groove-step.is-active {
-  border-color: #00ffd5;
-  background: #00bfa6;
-  box-shadow: 0 0 12px rgba(0, 255, 213, 0.22);
-}
+.groove-track-cyan { --track-accent: #00ffd5; --track-fill: #00bfa6; --track-glow: rgba(0, 255, 213, 0.22); }
+.groove-track-lime { --track-accent: #b6ff4a; --track-fill: #6c9f1e; --track-glow: rgba(182, 255, 74, 0.22); }
+.groove-track-purple { --track-accent: #b58aff; --track-fill: #8152c8; --track-glow: rgba(181, 138, 255, 0.2); }
+.groove-track-amber { --track-accent: #ffd166; --track-fill: #bd8b28; --track-glow: rgba(255, 209, 102, 0.18); }
+.groove-track-pink { --track-accent: #ff84b7; --track-fill: #bd4e7c; --track-glow: rgba(255, 132, 183, 0.18); }
+.groove-track-blue { --track-accent: #62b7ff; --track-fill: #286ca8; --track-glow: rgba(98, 183, 255, 0.2); }
+.groove-track-red { --track-accent: #ff7070; --track-fill: #a94242; --track-glow: rgba(255, 112, 112, 0.2); }
+.groove-track-orange { --track-accent: #ff9f55; --track-fill: #a85c25; --track-glow: rgba(255, 159, 85, 0.2); }
+.groove-track-violet { --track-accent: #dd8bff; --track-fill: #8245a0; --track-glow: rgba(221, 139, 255, 0.2); }
+.groove-track-green { --track-accent: #55e6a5; --track-fill: #287e59; --track-glow: rgba(85, 230, 165, 0.2); }
 
-.groove-track-lime .groove-step.is-active {
-  border-color: #b6ff4a;
-  background: #6c9f1e;
-  box-shadow: 0 0 12px rgba(182, 255, 74, 0.22);
-}
-
-.groove-track-purple .groove-step.is-active {
-  border-color: #b58aff;
-  background: #8152c8;
-  box-shadow: 0 0 12px rgba(181, 138, 255, 0.2);
-}
-
-.groove-track-amber .groove-step.is-active {
-  border-color: #ffd166;
-  background: #bd8b28;
-  box-shadow: 0 0 12px rgba(255, 209, 102, 0.18);
-}
-
-.groove-track-pink .groove-step.is-active {
-  border-color: #ff84b7;
-  background: #bd4e7c;
-  box-shadow: 0 0 12px rgba(255, 132, 183, 0.18);
+.groove-track .groove-step.is-active {
+  border-color: var(--track-accent);
+  background: var(--track-fill);
+  box-shadow: 0 0 12px var(--track-glow);
 }
 
 .groove-step.is-current {
@@ -1131,6 +1192,16 @@ body::before {
 .groove-play-button:focus-visible,
 .groove-utility-button:focus-visible,
 .groove-track-name:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.groove-track-volume input:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.groove-preset-button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
@@ -1212,12 +1283,26 @@ body::before {
     margin-left: 0;
   }
 
+  .groove-preset-buttons {
+    gap: 0.4rem;
+  }
+
+  .groove-preset-button {
+    min-height: 50px;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.68rem;
+  }
+
+  .groove-preset-button small {
+    font-size: 0.58rem;
+  }
+
   .groove-utility-button {
     flex: 1;
   }
 
   .groove-sequencer {
-    min-width: 570px;
+    min-width: 670px;
   }
 
   .groove-step {
