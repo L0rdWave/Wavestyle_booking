@@ -327,6 +327,7 @@ export function initGroovebox(root) {
   });
   let noiseBuffer;
   let audioUnlockPromise;
+  let audioOutputPrimed = false;
   let schedulerId;
   let nextStepAt = 0;
   let nextStepIndex = 0;
@@ -380,6 +381,7 @@ export function initGroovebox(root) {
       }
 
       audioContext = new AudioContextConstructor();
+      audioContext.addEventListener('statechange', handleAudioStateChange);
       masterGain = audioContext.createGain();
       masterGain.gain.value = Number(volumeInput.value) / 100;
       const compressor = audioContext.createDynamicsCompressor();
@@ -446,16 +448,36 @@ export function initGroovebox(root) {
     return audioUnlockPromise;
   }
 
+  function primeAudioOutput() {
+    if (audioOutputPrimed || !audioContext || audioContext.state === 'closed') return;
+
+    const silentBuffer = audioContext.createBuffer(1, 1, audioContext.sampleRate);
+    const source = audioContext.createBufferSource();
+    source.buffer = silentBuffer;
+    source.connect(audioContext.destination);
+    source.start();
+    audioOutputPrimed = true;
+  }
+
   function primeAudioFromGesture(event) {
     if (!(event.target instanceof Element)) return;
     const button = event.target.closest('button[data-action="play"], button[data-action="preview"]');
     if (!button) return;
 
     try {
-      unlockAudio().catch(showAudioError);
+      const unlockPromise = unlockAudio();
+      primeAudioOutput();
+      unlockPromise.catch(showAudioError);
     } catch (error) {
       showAudioError(error);
     }
+  }
+
+  function handleAudioStateChange() {
+    if (!isPlaying || !audioContext || audioContext.state === 'running' || audioContext.state === 'closed') return;
+
+    stopPlayback();
+    setStatus('El navegador pausó el audio. Tocá Reproducir para activarlo de nuevo.', true);
   }
 
   function playKick(time) {
@@ -1150,6 +1172,7 @@ export function initGroovebox(root) {
     window.removeEventListener('pointerup', stopDrawing);
     window.removeEventListener('pointercancel', stopDrawing);
     if (audioContext && audioContext.state !== 'closed') {
+      audioContext.removeEventListener('statechange', handleAudioStateChange);
       void audioContext.close();
     }
     if (root.__grooveCleanup === cleanup) delete root.__grooveCleanup;
