@@ -128,6 +128,7 @@ export function initGroovebox(root) {
   let audioContext;
   let masterGain;
   let noiseBuffer;
+  let audioUnlockPromise;
   let schedulerId;
   let nextStepAt = 0;
   let nextStepIndex = 0;
@@ -163,15 +164,36 @@ export function initGroovebox(root) {
     return audioContext;
   }
 
-  async function unlockAudio() {
+  function unlockAudio() {
     const context = getAudioContext();
-    if (context.state === 'suspended') {
-      await context.resume();
+    if (context.state === 'running') return Promise.resolve(context);
+
+    if (!audioUnlockPromise) {
+      audioUnlockPromise = context.resume()
+        .then(() => {
+          if (context.state !== 'running') {
+            throw new Error('El navegador no habilitó el audio. Tocá Play otra vez o revisá el volumen del iPhone.');
+          }
+          return context;
+        })
+        .finally(() => {
+          audioUnlockPromise = undefined;
+        });
     }
-    if (context.state !== 'running') {
-      throw new Error('El navegador no habilitó el audio. Tocá Play otra vez o revisá el modo silencio.');
+
+    return audioUnlockPromise;
+  }
+
+  function primeAudioFromGesture(event) {
+    if (!(event.target instanceof Element)) return;
+    const button = event.target.closest('button[data-action="play"], button[data-action="preview"]');
+    if (!button) return;
+
+    try {
+      unlockAudio().catch(showAudioError);
+    } catch (error) {
+      showAudioError(error);
     }
-    return context;
   }
 
   function playKick(time) {
@@ -453,6 +475,7 @@ export function initGroovebox(root) {
   }
 
   root.addEventListener('click', handleClick);
+  root.addEventListener('pointerdown', primeAudioFromGesture);
   root.addEventListener('pointerdown', startDrawing);
   root.addEventListener('pointermove', continueDrawing);
   window.addEventListener('pointerup', stopDrawing);
@@ -472,6 +495,7 @@ export function initGroovebox(root) {
   const cleanup = () => {
     stopPlayback();
     root.removeEventListener('click', handleClick);
+    root.removeEventListener('pointerdown', primeAudioFromGesture);
     root.removeEventListener('pointerdown', startDrawing);
     root.removeEventListener('pointermove', continueDrawing);
     window.removeEventListener('pointerup', stopDrawing);
