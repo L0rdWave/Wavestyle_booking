@@ -52,6 +52,12 @@
         "id": "games",
         "title": "Laboratorio (Juegos / Easter Eggs)",
         "path": "/games"
+      },
+      {
+        "id": "nightlife",
+        "title": "NIGHTLIFE HUB",
+        "path": "/nightlife",
+        "status": "active"
       }
     ]
   }

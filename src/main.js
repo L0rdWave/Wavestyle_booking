@@ -5,10 +5,12 @@ import { renderVans } from './view/vansView.js?v=20261015-2230';
 import { renderSciKhole } from './view/sciKholeView.js';
 import { renderBooking } from './view/bookingView.js?v=20261015-2230';
 import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=groovebox-keys-20261016';
+import { renderNightlifeView } from './view/nightlifeView.js';
+import { renderNightlifeProposalView } from './view/nightlifeProposalView.js';
 import { initPwaInstall } from './pwa.js';
 
 const app = document.getElementById('app');
-let cleanupGroovebox = () => {};
+let cleanupCurrentView = () => {};
 
 // Sistema de Cursor Custom
 function initCustomCursor() {
@@ -34,8 +36,8 @@ function initCustomCursor() {
 }
 
 function render(path) {
-  cleanupGroovebox();
-  cleanupGroovebox = () => {};
+  cleanupCurrentView();
+  cleanupCurrentView = () => {};
   app.innerHTML = '';
   
   if (path === '/' || path === '') {
@@ -50,6 +52,10 @@ function render(path) {
     app.innerHTML = renderBooking();
   } else if (path === '/games') {
     app.innerHTML = renderGroovebox();
+  } else if (path === '/nightlife') {
+    cleanupCurrentView = renderNightlifeView(app);
+  } else if (path === '/nightlife/propose') {
+    app.innerHTML = renderNightlifeProposalView();
   } else {
     app.innerHTML = `
       <div class="construction-container">
@@ -65,7 +71,7 @@ function render(path) {
   }
 
   if (path === '/games') {
-    cleanupGroovebox = initGroovebox(app);
+    cleanupCurrentView = initGroovebox(app);
   }
 }
 

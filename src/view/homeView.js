@@ -66,7 +66,11 @@ export function renderHome() {
               <a href="#${mod.path}" data-link class="identity-card construction">
                 <div class="card-body">
                   <h3>${mod.title}</h3>
-                  <p>${mod.id === 'games' ? 'Mini Groovebox: armá tus propios ritmos' : 'Módulo interactivo en preparación'}</p>
+                  <p>${mod.id === 'games'
+                    ? 'Mini Groovebox: armá tus propios ritmos'
+                    : mod.id === 'nightlife'
+                      ? 'Próximas fechas, cuenta regresiva y archivo de eventos'
+                      : 'Módulo interactivo en preparación'}</p>
                   <span class="action-link">Inicializar <i data-lucide="chevron-right"></i></span>
                 </div>
               </a>

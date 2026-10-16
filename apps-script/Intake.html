@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #101719;
+        --surface: #151d1f;
+        --border: #26383a;
+        --text: #f4f4f6;
+        --muted: #a3adb0;
+        --accent: #00ffd5;
+        font-family: Arial, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: clamp(16px, 4vw, 36px);
+        background:
+          radial-gradient(ellipse at 100% 0, rgba(0, 255, 213, .1), transparent 38%),
+          var(--bg);
+        color: var(--text);
+      }
+      main { max-width: 760px; margin: 0 auto; }
+      .eyebrow {
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .14em;
+      }
+      h1 { margin: 10px 0; font-size: clamp(25px, 6vw, 38px); }
+      .intro, .privacy { color: var(--muted); line-height: 1.6; }
+      form { display: grid; gap: 18px; margin-top: 26px; }
+      fieldset {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin: 0;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(21, 29, 31, .82);
+      }
+      legend { padding: 0 8px; color: var(--accent); font-weight: 700; }
+      label { display: grid; gap: 7px; min-width: 0; color: var(--text); font-size: 14px; }
+      label.full { grid-column: 1 / -1; }
+      .optional { color: var(--muted); font-size: 12px; font-weight: 400; }
+      input, textarea {
+        width: 100%;
+        min-height: 43px;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        outline: none;
+        background: #0b1011;
+        color: var(--text);
+        font: inherit;
+      }
+      input:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(0, 255, 213, .12); }
+      input[type="file"] { padding: 8px; font-size: 12px; }
+      textarea { min-height: 100px; resize: vertical; }
+      .help { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+      .consent { display: flex; grid-template-columns: none; align-items: flex-start; gap: 10px; color: var(--muted); line-height: 1.5; }
+      .consent input { width: 18px; min-height: 18px; flex: 0 0 auto; margin: 1px 0 0; accent-color: var(--accent); }
+      button {
+        min-height: 48px;
+        border: 0;
+        border-radius: 6px;
+        background: var(--accent);
+        color: #07100f;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button:disabled { opacity: .6; cursor: wait; }
+      #status { min-height: 24px; margin: 0; color: var(--muted); line-height: 1.5; }
+      #status.success { color: var(--accent); }
+      #status.error { color: #ff8794; }
+      @media (max-width: 540px) {
+        body { padding: 18px 14px; }
+        fieldset { grid-template-columns: 1fr; padding: 14px; }
+        label.full { grid-column: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">CANAL PRIVADO · REVISIÓN MANUAL</span>
+      <h1>Proponer una fecha</h1>
+      <p class="intro">Completá los datos del evento. La propuesta y sus archivos quedan privados hasta que el equipo los revise y apruebe.</p>
+
+      <form id="proposal-form" onsubmit="submitProposal(event)">
+        <fieldset>
+          <legend>Acceso y evento</legend>
+          <label class="full">
+            Token de acceso
+            <input name="accessToken" type="password" autocomplete="one-time-code" minlength="24" required>
+          </label>
+          <label>
+            Nombre del evento
+            <input name="title" maxlength="100" required>
+          </label>
+          <label>
+            Género musical
+            <input name="genre" maxlength="100" required>
+          </label>
+          <label>
+            Fecha
+            <input name="eventDate" type="date" required>
+          </label>
+          <label>
+            Hora <span class="optional">Opcional</span>
+            <input name="eventTime" type="time">
+          </label>
+          <label>
+            Venue / lugar
+            <input name="venue" maxlength="120" required>
+          </label>
+          <label>
+            Ciudad
+            <input name="city" maxlength="100" required>
+          </label>
+          <label class="full">
+            Descripción <span class="optional">Opcional</span>
+            <textarea name="description" maxlength="1200"></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Flyer y enlaces</legend>
+          <label class="full">
+            Flyer del evento
+            <input name="flyer" type="file" accept="image/jpeg,image/png,image/webp" required>
+            <span class="help">JPG, PNG o WebP. Máximo 8 MB. No se aceptan SVG ni archivos ejecutables.</span>
+          </label>
+          <label class="full">
+            DJ set <span class="optional">Opcional</span>
+            <input name="djSet" type="file" accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/mp4,audio/ogg,.mp3,.wav,.m4a,.ogg">
+            <span class="help">MP3, WAV, M4A u OGG. Máximo 18 MB.</span>
+          </label>
+          <label class="full">
+            Video de YouTube <span class="optional">Opcional</span>
+            <input name="youtubeUrl" type="url" placeholder="https://youtu.be/...">
+          </label>
+          <label>
+            Página del evento / entradas <span class="optional">Opcional</span>
+            <input name="ticketsUrl" type="url" placeholder="https://...">
+          </label>
+          <label>
+            Productora <span class="optional">Opcional</span>
+            <input name="promoterUrl" type="url" placeholder="https://...">
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Contacto</legend>
+          <label>
+            Tu nombre
+            <input name="contactName" maxlength="100" autocomplete="name" required>
+          </label>
+          <label>
+            Tu correo
+            <input name="contactEmail" type="email" maxlength="254" autocomplete="email" required>
+          </label>
+          <label class="consent full">
+            <input name="consent" type="checkbox" required>
+            <span>Confirmo que puedo compartir esta información y autorizo a Wavestyle a revisarla para evaluar su publicación. La propuesta no se publica automáticamente.</span>
+          </label>
+        </fieldset>
+
+        <p class="privacy">El token se valida en el servidor y no se almacena con la propuesta. Los archivos se guardan en una carpeta privada de Google Drive.</p>
+        <button id="submit-button" type="submit">Enviar propuesta para revisión</button>
+        <p id="status" role="status" aria-live="polite"></p>
+      </form>
+    </main>
+    <script>
+      function submitProposal(event) {
+        event.preventDefault();
+        const form = document.getElementById('proposal-form');
+        const button = document.getElementById('submit-button');
+        const status = document.getElementById('status');
+        if (!form.reportValidity()) return;
+
+        status.className = '';
+        status.textContent = 'Validando y guardando la propuesta de forma privada...';
+        button.disabled = true;
+        google.script.run
+          .withSuccessHandler(result => {
+            form.reset();
+            status.className = 'success';
+            status.textContent = result.notificationSent
+              ? '¡Listo! Recibimos la propuesta para revisión. Todavía no está publicada. Referencia: ' + result.reference
+              : 'La propuesta quedó guardada y pendiente de revisión (referencia: ' + result.reference + '), pero no salió el aviso por correo. El administrador debe revisar Drive.';
+            button.disabled = false;
+          })
+          .withFailureHandler(error => {
+            status.className = 'error';
+            status.textContent = error && error.message
+              ? error.message
+              : 'No pudimos enviar la propuesta. Revisá tu conexión e intentá de nuevo.';
+            button.disabled = false;
+          })
+          .submitProposal(form);
+      }
+    </script>
+  </body>
+</html>

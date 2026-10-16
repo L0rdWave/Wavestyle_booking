@@ -12,6 +12,8 @@ export function initRouter(renderCallback) {
       document.body.classList.add('theme-helios');
     } else if (path === '/sci-khole') {
       document.body.classList.add('theme-scikhole');
+    } else if (path.startsWith('/nightlife')) {
+      document.body.classList.add('theme-nightlife');
     }
 
     renderCallback(path);

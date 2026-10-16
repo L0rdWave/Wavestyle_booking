@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wavestyle-source-v1';
+const CACHE_NAME = 'wavestyle-source-v2';
 const CACHE_PREFIX = 'wavestyle-source-';
 const APP_BASE = '/Wavestyle_booking/';
 const ESSENTIAL_URLS = [
@@ -20,8 +20,11 @@ const ESSENTIAL_URLS = [
   `${APP_BASE}src/view/grooveboxView.js`,
   `${APP_BASE}src/view/heliosView.js`,
   `${APP_BASE}src/view/homeView.js`,
+  `${APP_BASE}src/view/nightlifeView.js`,
+  `${APP_BASE}src/view/nightlifeProposalView.js`,
   `${APP_BASE}src/view/sciKholeView.js`,
   `${APP_BASE}src/view/vansView.js`,
+  `${APP_BASE}public/events.json`,
 ];
 const OPTIONAL_URLS = [
   `${APP_BASE}public/favicon.svg`,

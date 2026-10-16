@@ -1,0 +1,31 @@
+{
+  "nextEvent": {
+    "title": "WAVESTYLE: INDUSTRIAL CORE",
+    "genre": "Techno / Hard Grooving",
+    "date": "2026-11-20T00:00:00",
+    "location": "El Ángel, Buenos Aires",
+    "ticketsUrl": "https://passline.com",
+    "flyer": "public/images/sci-khole-1.jpeg",
+    "vibe": "Oscuro, industrial y crudo"
+  },
+  "upcomingEvents": [
+    {
+      "id": "evt-01",
+      "title": "HELIOS WAVE: PSYCHEDELIC ODYSSEY",
+      "genre": "Psytrance",
+      "date": "2026-12-05",
+      "location": "Bastet Club",
+      "status": "PRÓXIMO",
+      "ticketsUrl": "https://revamos.com"
+    }
+  ],
+  "pastEvents": [
+    {
+      "id": "archive-01",
+      "title": "VANS: GOLDEN GROOVE SESSION",
+      "date": "2026-09-12",
+      "setAudioUrl": "https://soundcloud.com/wavestyle/golden-groove-live",
+      "photosUrl": "#"
+    }
+  ]
+}

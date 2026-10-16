@@ -34,6 +34,12 @@ body.theme-scikhole {
   --border: #333333;
 }
 
+body.theme-nightlife {
+  --accent: #00ffd5;
+  --bg-card: #101719;
+  --border: #203431;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -496,6 +502,436 @@ body {
   font-size: 0.9rem;
 }
 
+.nightlife-container {
+  max-width: 1000px;
+}
+
+.nightlife-back-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.nightlife-header {
+  position: relative;
+  padding: 1.5rem 0 2rem;
+}
+
+.nightlife-propose-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nightlife-propose-link:hover {
+  color: var(--bg-primary);
+  background: var(--accent);
+}
+
+.nightlife-header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 5rem;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent), transparent 25%);
+}
+
+.nightlife-featured {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  min-height: 360px;
+  overflow: hidden;
+  margin-bottom: 3.5rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse at 85% 15%, rgba(0, 255, 213, 0.12), transparent 38%),
+    var(--bg-card);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.28);
+}
+
+.nightlife-empty {
+  min-height: 280px;
+  grid-template-columns: 1fr;
+  align-content: center;
+  justify-items: center;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.nightlife-empty-mark {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--accent);
+  background: rgba(0, 255, 213, 0.05);
+}
+
+.nightlife-empty-mark svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.nightlife-empty .project-genre {
+  margin-bottom: 0.6rem;
+}
+
+.nightlife-empty h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+}
+
+.nightlife-empty p {
+  max-width: 34rem;
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.nightlife-demo-label {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(255, 183, 3, 0.5);
+  border-radius: 4px;
+  background: rgba(7, 7, 9, 0.8);
+  color: #ffb703;
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.nightlife-featured-image {
+  min-height: 360px;
+  background-image:
+    linear-gradient(90deg, transparent 55%, var(--bg-card) 100%),
+    linear-gradient(0deg, rgba(7, 7, 9, 0.25), rgba(7, 7, 9, 0.05)),
+    var(--event-image);
+  background-position: center;
+  background-size: cover;
+}
+
+.nightlife-featured-content {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.nightlife-badge,
+.nightlife-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.nightlife-live-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+}
+
+.nightlife-date {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.nightlife-featured-content h2 {
+  margin: 0;
+  color: var(--text-main);
+  font-family: 'Syncopate', sans-serif;
+  font-size: clamp(1.45rem, 4vw, 2.3rem);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.nightlife-genre {
+  margin: 0.8rem 0 1.5rem;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.nightlife-countdown-label {
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+}
+
+.nightlife-countdown {
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px dashed rgba(0, 255, 213, 0.4);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--text-main);
+  font-family: monospace;
+  font-size: clamp(1.05rem, 3vw, 1.5rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.nightlife-location,
+.nightlife-event-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+
+.nightlife-location {
+  margin: 1.25rem 0;
+}
+
+.nightlife-location svg,
+.nightlife-event-location svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--accent);
+}
+
+.nightlife-ticket-link,
+.nightlife-event-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--bg-primary);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.8rem 1.1rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nightlife-ticket-link:hover,
+.nightlife-event-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent), transparent 72%);
+}
+
+.nightlife-ticket-unavailable {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.nightlife-section {
+  margin: 0 0 3.5rem;
+}
+
+.nightlife-section[hidden] {
+  display: none;
+}
+
+.nightlife-section-heading {
+  margin-bottom: 1.25rem;
+}
+
+.nightlife-section-heading .project-genre {
+  margin-bottom: 0.4rem;
+}
+
+.nightlife-section-heading h2 {
+  margin: 0;
+  color: var(--text-main);
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+}
+
+.nightlife-event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 1rem;
+}
+
+.nightlife-event-card {
+  min-width: 0;
+  padding: 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.nightlife-event-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.nightlife-event-card .project-genre {
+  margin-bottom: 0.75rem;
+}
+
+.nightlife-event-card h3 {
+  margin: 0 0 0.6rem;
+  color: var(--text-main);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  overflow-wrap: anywhere;
+}
+
+.nightlife-event-meta,
+.nightlife-event-location {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.nightlife-event-link {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  color: var(--accent);
+  background: transparent;
+}
+
+.nightlife-archive .nightlife-event-card {
+  background: linear-gradient(145deg, rgba(0, 255, 213, 0.04), transparent 70%), var(--bg-card);
+}
+
+.nightlife-loading {
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-self: center;
+  padding: 4rem 1rem;
+}
+
+.nightlife-error {
+  grid-column: 1 / -1;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.nightlife-error svg {
+  width: 2rem;
+  height: 2rem;
+  color: var(--accent);
+}
+
+.nightlife-error h2 {
+  font-family: var(--font-heading);
+}
+
+.nightlife-error p {
+  color: var(--text-muted);
+}
+
+.nightlife-intake-panel {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-card);
+}
+
+.nightlife-intake-frame-wrap {
+  width: 100%;
+  min-height: 1320px;
+}
+
+.nightlife-intake-frame {
+  display: block;
+  width: 100%;
+  height: 1450px;
+  border: 0;
+  background: var(--bg-card);
+}
+
+.nightlife-intake-unavailable {
+  display: flex;
+  min-height: 360px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  text-align: center;
+}
+
+.nightlife-intake-icon {
+  display: grid;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin-bottom: 1.25rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--accent);
+  background: rgba(0, 255, 213, 0.05);
+}
+
+.nightlife-intake-icon svg {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+.nightlife-intake-unavailable .project-genre {
+  margin-bottom: 0.6rem;
+}
+
+.nightlife-intake-unavailable h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+}
+
+.nightlife-intake-unavailable p {
+  max-width: 38rem;
+  margin: 0.8rem 0 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.nightlife-intake-no-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.nightlife-intake-no-send svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--accent);
+}
+
 @media (max-width: 640px) {
   #app {
     padding: 1rem;
@@ -572,6 +1008,45 @@ body {
 
   .project-container {
     min-width: 0;
+  }
+
+  .nightlife-featured {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .nightlife-empty {
+    min-height: 250px;
+    padding: 1.5rem;
+  }
+
+  .nightlife-featured-image {
+    min-height: 220px;
+    background-image:
+      linear-gradient(0deg, var(--bg-card) 0%, transparent 60%),
+      var(--event-image);
+  }
+
+  .nightlife-featured-content {
+    margin-top: -1.5rem;
+    padding: 0 1.25rem 1.5rem;
+  }
+
+  .nightlife-countdown {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nightlife-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .nightlife-intake-frame-wrap {
+    min-height: 1640px;
+  }
+
+  .nightlife-intake-frame {
+    height: 1760px;
   }
 
   .project-header {
