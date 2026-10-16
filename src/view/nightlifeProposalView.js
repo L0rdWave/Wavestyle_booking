@@ -1,4 +1,7 @@
-const intakeUrl = import.meta.env.VITE_NIGHTLIFE_INTAKE_URL?.trim() ?? '';
+const viteEnvironment = import.meta.env ?? {};
+const intakeUrl = viteEnvironment.VITE_NIGHTLIFE_INTAKE_URL?.trim() ?? '';
+const isDevelopment = viteEnvironment.DEV
+  ?? ['localhost', '127.0.0.1'].includes(window.location.hostname);
 
 export function renderNightlifeProposalView() {
   const safeUrl = getTrustedIntakeUrl(intakeUrl);
@@ -18,14 +21,14 @@ export function renderNightlifeProposalView() {
     : `
         <div class="nightlife-intake-unavailable" role="status">
           <span class="nightlife-intake-icon"><i data-lucide="shield-check"></i></span>
-          <span class="project-genre">${import.meta.env.DEV ? 'CONFIGURACIÓN LOCAL' : 'FORMULARIO PRIVADO'}</span>
-          <h2>${import.meta.env.DEV ? 'Backend todavía no conectado' : 'Formulario temporalmente no disponible'}</h2>
+          <span class="project-genre">${isDevelopment ? 'CONFIGURACIÓN LOCAL' : 'FORMULARIO PRIVADO'}</span>
+          <h2>${isDevelopment ? 'Backend todavía no conectado' : 'Formulario temporalmente no disponible'}</h2>
           <p>
-            ${import.meta.env.DEV
+            ${isDevelopment
               ? 'El formulario real valida el token en Google Apps Script y guarda los archivos en Drive privado. Configurá VITE_NIGHTLIFE_INTAKE_URL para probarlo; esta vista no envía datos.'
               : 'Estamos preparando el canal seguro de recepción. Por ahora, contactanos desde Booking & Contacto.'}
           </p>
-          ${import.meta.env.DEV
+          ${isDevelopment
             ? '<span class="nightlife-intake-no-send"><i data-lucide="lock-keyhole"></i> No se recopilan ni envían datos en esta vista</span>'
             : '<a href="#/booking" data-link class="nightlife-ticket-link">Ir a Booking <i data-lucide="arrow-up-right"></i></a>'}
         </div>

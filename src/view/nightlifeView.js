@@ -1,4 +1,7 @@
-const baseUrl = import.meta.env.BASE_URL;
+const viteEnvironment = import.meta.env ?? {};
+const baseUrl = viteEnvironment.BASE_URL ?? '/Wavestyle_booking/';
+const isDevelopment = viteEnvironment.DEV
+  ?? ['localhost', '127.0.0.1'].includes(window.location.hostname);
 
 export function renderNightlifeView(container) {
   container.innerHTML = `
@@ -62,8 +65,12 @@ async function loadNightlifeData(container, signal, setCountdownTimer) {
 
     const data = await response.json();
     if (signal.aborted || !container.isConnected) return;
-    if (!data.nextEvent && import.meta.env.DEV) {
-      const { default: exampleData } = await import('../data/events.example.json');
+    if (!data.nextEvent && isDevelopment) {
+      const exampleResponse = await fetch(`${baseUrl}src/data/events.example.json`, { signal });
+      if (!exampleResponse.ok) {
+        throw new Error(`La solicitud de eventos de desarrollo respondió ${exampleResponse.status}`);
+      }
+      const exampleData = await exampleResponse.json();
       if (signal.aborted || !container.isConnected) return;
       renderNextEvent(container, exampleData.nextEvent);
       container.querySelector('#next-event-hero')?.insertAdjacentHTML(
