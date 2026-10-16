@@ -5,6 +5,7 @@ import { renderVans } from './view/vansView.js?v=20261015-2230';
 import { renderSciKhole } from './view/sciKholeView.js';
 import { renderBooking } from './view/bookingView.js?v=20261015-2230';
 import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=groovebox-keys-20261016';
+import { initPwaInstall } from './pwa.js';
 
 const app = document.getElementById('app');
 let cleanupGroovebox = () => {};
@@ -71,3 +72,11 @@ function render(path) {
 // Arrancar router y cursor
 initRouter(render);
 initCustomCursor();
+initPwaInstall();
+
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}service-worker.js`)
+      .catch(error => console.error('No se pudo preparar Wavestyle para uso sin conexión:', error));
+  }, { once: true });
+}

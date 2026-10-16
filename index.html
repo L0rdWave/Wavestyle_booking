@@ -2,10 +2,17 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090a0f" />
+    <meta name="description" content="Wavestyle: música electrónica, booking, identidades sonoras y laboratorio interactivo." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Wavestyle" />
     <title>WAVESTYLE // Plataforma Sonora Independiente</title>
-    <link rel="stylesheet" href="./src/styles/main.css?v=groovebox-keys-20261016" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/wavestyle-180.png" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./src/styles/main.css?v=groovebox-pwa-20261016" />
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
   </head>
@@ -15,6 +22,21 @@
     <div class="custom-cursor-dot"></div>
 
     <div id="app"></div>
-    <script type="module" src="./src/main.js?v=groovebox-keys-20261016"></script>
+    <button class="pwa-install-button" id="pwa-install-button" type="button" aria-haspopup="dialog" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+      <span>Instalar Wavestyle</span>
+    </button>
+    <dialog class="pwa-install-dialog" id="pwa-install-dialog" aria-labelledby="pwa-install-title">
+      <div class="pwa-install-dialog-content">
+        <button class="pwa-install-close" id="pwa-install-close" type="button" aria-label="Cerrar instrucciones">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 6-12 12"/><path d="m6 6 12 12"/></svg>
+        </button>
+        <span class="project-genre">WAVESTYLE · APP</span>
+        <h2 id="pwa-install-title">Llevá Wavestyle con vos</h2>
+        <p id="pwa-install-instructions"></p>
+        <p class="pwa-install-footnote">La primera instalación necesita conexión. Después, las páginas y el contenido local quedan disponibles sin conexión; los enlaces y reproductores externos siguen necesitando Internet.</p>
+      </div>
+    </dialog>
+    <script type="module" src="./src/main.js?v=groovebox-pwa-20261016"></script>
   </body>
 </html>
