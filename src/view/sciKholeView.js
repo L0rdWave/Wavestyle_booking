@@ -7,7 +7,7 @@ export function renderSciKhole() {
 
       <header class="project-header">
         <div class="project-logo-wrapper">
-          <img src="/images/logo-sci-khole.png" alt="Logo de Sci-Khole" class="brand-node-logo" />
+          <img src="images/logo-sci-khole.png" alt="Logo de Sci-Khole" class="brand-node-logo" />
         </div>
         <span class="project-genre"><i data-lucide="disc"></i> DETROIT · PEAK TIME · DRIVING · RAW · INDUSTRIAL · GROOVY · BOUNCY</span>
         <h1>Sci-Khole</h1>

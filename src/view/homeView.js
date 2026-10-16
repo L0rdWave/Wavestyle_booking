@@ -8,7 +8,7 @@ export function renderHome() {
     <div class="motherboard-container">
       
       <div class="hero-banner-wrapper">
-        <img src="/images/banner-hero.jpg" alt="Vans tocando en vivo para Wavestyle" class="hero-bg-img" onerror="this.style.display='none'" />
+        <img src="images/banner-hero.jpg" alt="Vans tocando en vivo para Wavestyle" class="hero-bg-img" onerror="this.style.display='none'" />
         <div class="hero-overlay"></div>
       </div>
 
