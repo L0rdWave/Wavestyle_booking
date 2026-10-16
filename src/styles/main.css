@@ -853,3 +853,369 @@ body::before {
 .cyber-audio-element::-webkit-media-controls-panel {
   width: calc(100% + 30px); /* Oculta botones extra de menú nativos en Chrome/Edge */
 }
+
+.groovebox-page {
+  max-width: 900px;
+}
+
+.groovebox-header {
+  margin-bottom: 1.5rem;
+}
+
+.groovebox {
+  --groove-accent: #00ffd5;
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid rgba(0, 255, 213, 0.25);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(0, 255, 213, 0.09), transparent 45%),
+    linear-gradient(145deg, #111319, #090a0f 75%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.groovebox-topline,
+.groovebox-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.groovebox-eyebrow,
+.groove-control-label {
+  color: #818998;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.groovebox-hint {
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.groovebox-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 0 0 auto;
+  color: #8b95a2;
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+
+.groovebox-live span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--groove-accent);
+  box-shadow: 0 0 12px var(--groove-accent);
+}
+
+.groovebox-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+  padding: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.groove-play-button,
+.groove-utility-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font: 700 0.86rem var(--font-heading);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.groove-play-button {
+  min-width: 145px;
+  padding: 0.7rem 1rem;
+  color: #06100e;
+  background: var(--groove-accent);
+}
+
+.groove-play-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 255, 213, 0.18);
+}
+
+.groove-play-button.is-playing {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: #282b34;
+}
+
+.groove-tempo,
+.groove-volume {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.groove-tempo-value {
+  color: var(--text-main);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.groove-tempo-value small {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+}
+
+.groove-tempo input,
+.groove-volume input {
+  width: 145px;
+  accent-color: var(--groove-accent);
+  cursor: pointer;
+}
+
+.groove-volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+
+.groove-volume input {
+  width: 100px;
+}
+
+.groovebox-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.groove-utility-button {
+  padding: 0.6rem 0.75rem;
+  color: #c5cad2;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.groove-utility-button:hover {
+  border-color: rgba(0, 255, 213, 0.45);
+  background: rgba(0, 255, 213, 0.08);
+}
+
+.groove-sequencer-scroll {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: #414752 #111319;
+  scrollbar-width: thin;
+}
+
+.groove-sequencer {
+  display: grid;
+  min-width: 570px;
+  gap: 0.5rem;
+  padding: 0.25rem 0 0.8rem;
+}
+
+.groove-step-numbers,
+.groove-track {
+  display: grid;
+  grid-template-columns: 76px repeat(16, minmax(20px, 1fr));
+  align-items: center;
+  gap: 5px;
+}
+
+.groove-step-numbers span {
+  color: #606a78;
+  font: 600 0.59rem var(--font-heading);
+  text-align: center;
+}
+
+.groove-step-numbers .groove-beat-number {
+  color: #aab2bf;
+}
+
+.groove-track-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  padding: 0.25rem 0;
+  border: 0;
+  color: var(--text-main);
+  background: transparent;
+  font: 700 0.67rem var(--font-heading);
+  cursor: pointer;
+}
+
+.groove-track-name small {
+  color: #7f8896;
+  font: 400 0.62rem var(--font-base);
+}
+
+.groove-step {
+  position: relative;
+  width: 100%;
+  min-width: 22px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #303540;
+  border-radius: 6px;
+  background: #1b1e26;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.groove-step:hover {
+  border-color: #8993a1;
+  transform: translateY(-1px);
+}
+
+.groove-track-kick .groove-step.is-active {
+  border-color: #00ffd5;
+  background: #00bfa6;
+  box-shadow: 0 0 12px rgba(0, 255, 213, 0.22);
+}
+
+.groove-track-snare .groove-step.is-active {
+  border-color: #b58aff;
+  background: #8152c8;
+  box-shadow: 0 0 12px rgba(181, 138, 255, 0.2);
+}
+
+.groove-track-hat .groove-step.is-active {
+  border-color: #ffd166;
+  background: #bd8b28;
+  box-shadow: 0 0 12px rgba(255, 209, 102, 0.18);
+}
+
+.groove-track-clap .groove-step.is-active {
+  border-color: #ff84b7;
+  background: #bd4e7c;
+  box-shadow: 0 0 12px rgba(255, 132, 183, 0.18);
+}
+
+.groove-step.is-current {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.groove-step:focus-visible,
+.groove-play-button:focus-visible,
+.groove-utility-button:focus-visible,
+.groove-track-name:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.groovebox-footer {
+  margin-top: 0.8rem;
+}
+
+.groove-status {
+  margin: 0;
+  color: #98a1ad;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.groove-status.is-error {
+  color: #ff8a8a;
+}
+
+.groove-step-readout {
+  flex: 0 0 auto;
+  color: #707987;
+  font: 700 0.68rem var(--font-heading);
+}
+
+.groove-step-readout span {
+  color: var(--groove-accent);
+}
+
+.groovebox-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .groovebox-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .groovebox-topline {
+    align-items: flex-start;
+  }
+
+  .groovebox-live {
+    margin-top: 0.15rem;
+    font-size: 0.56rem;
+  }
+
+  .groovebox-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 0.75rem;
+    margin: 1.1rem 0;
+    padding: 0.85rem;
+  }
+
+  .groove-play-button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .groove-tempo input {
+    width: 100%;
+  }
+
+  .groove-volume input {
+    width: 100%;
+  }
+
+  .groovebox-actions {
+    grid-column: 1 / -1;
+    margin-left: 0;
+  }
+
+  .groove-utility-button {
+    flex: 1;
+  }
+
+  .groove-sequencer {
+    min-width: 570px;
+  }
+
+  .groove-step {
+    height: 36px;
+  }
+
+  .groovebox-footer {
+    align-items: flex-start;
+  }
+
+  .groove-status {
+    max-width: 80%;
+  }
+}

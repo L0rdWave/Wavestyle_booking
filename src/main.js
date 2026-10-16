@@ -1,12 +1,13 @@
 import { initRouter } from './core/router.js';
-import { renderHome } from './view/homeView.js';
-import { renderConstruction } from './view/constructionView.js';
+import { renderHome } from './view/homeView.js?v=groovebox-20261015';
 import { renderHelios } from './view/heliosView.js?v=20261015-2230';
 import { renderVans } from './view/vansView.js?v=20261015-2230';
 import { renderSciKhole } from './view/sciKholeView.js';
 import { renderBooking } from './view/bookingView.js?v=20261015-2230';
+import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=20261015-groovebox';
 
 const app = document.getElementById('app');
+let cleanupGroovebox = () => {};
 
 // Sistema de Cursor Custom
 function initCustomCursor() {
@@ -32,6 +33,8 @@ function initCustomCursor() {
 }
 
 function render(path) {
+  cleanupGroovebox();
+  cleanupGroovebox = () => {};
   app.innerHTML = '';
   
   if (path === '/' || path === '') {
@@ -45,7 +48,7 @@ function render(path) {
   } else if (path === '/booking') {
     app.innerHTML = renderBooking();
   } else if (path === '/games') {
-    app.innerHTML = renderConstruction(path.replace('/', ''));
+    app.innerHTML = renderGroovebox();
   } else {
     app.innerHTML = `
       <div class="construction-container">
@@ -58,6 +61,10 @@ function render(path) {
   // Inicializar íconos de Lucide tras re-renderizar la vista
   if (window.lucide) {
     window.lucide.createIcons();
+  }
+
+  if (path === '/games') {
+    cleanupGroovebox = initGroovebox(app);
   }
 }
 
