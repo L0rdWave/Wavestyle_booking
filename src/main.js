@@ -74,9 +74,13 @@ initRouter(render);
 initCustomCursor();
 initPwaInstall();
 
-if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+const viteEnvironment = import.meta.env || {};
+const isProduction = viteEnvironment.PROD ?? !['localhost', '127.0.0.1'].includes(location.hostname);
+const appBaseUrl = viteEnvironment.BASE_URL ?? '/Wavestyle_booking/';
+
+if (isProduction && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}service-worker.js`)
+    navigator.serviceWorker.register(`${appBaseUrl}service-worker.js`)
       .catch(error => console.error('No se pudo preparar Wavestyle para uso sin conexión:', error));
   }, { once: true });
 }

@@ -45,6 +45,13 @@ function pwaServiceWorker() {
         || /\/assets\/.*\.(?:js|css)$/.test(path)
         || /\/icons\/.*\.(?:svg|png)$/.test(path),
       );
+      essentialUrls.push(
+        `${base}public/manifest.webmanifest`,
+        `${base}public/favicon.svg`,
+        `${base}public/icons/wavestyle-180.png`,
+        `${base}public/icons/wavestyle-192.png`,
+        `${base}public/icons/wavestyle-512.png`,
+      );
       const optionalUrls = [
         ...assetUrls.filter(path => !essentialUrls.includes(path) && !/\/(?:images|audio)\//.test(path)),
         ...legacyPublicUrls,
