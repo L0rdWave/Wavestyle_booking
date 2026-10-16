@@ -129,6 +129,7 @@ export function initGroovebox(root) {
   let isPlaying = false;
   let drawingPointerId = null;
   let drawingActive = false;
+  let suppressPointerStepClick = false;
   const visualTimers = new Set();
 
   function setStatus(message, isError = false) {
@@ -332,6 +333,7 @@ export function initGroovebox(root) {
 
     drawingPointerId = event.pointerId;
     drawingActive = button.getAttribute('aria-pressed') !== 'true';
+    suppressPointerStepClick = true;
     updateStepButton(button, drawingActive);
     setStatus('Dibujando patrón. Arrastrá por los pasos que quieras activar o borrar.');
   }
@@ -358,7 +360,10 @@ export function initGroovebox(root) {
 
     const { action, track } = button.dataset;
     if (action === 'step') {
-      if (event.detail > 0) return;
+      if (event.detail > 0 && suppressPointerStepClick) {
+        suppressPointerStepClick = false;
+        return;
+      }
       updateStepButton(button, button.getAttribute('aria-pressed') !== 'true');
       return;
     }
