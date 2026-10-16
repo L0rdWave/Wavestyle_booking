@@ -80,7 +80,7 @@ const appBaseUrl = viteEnvironment.BASE_URL ?? '/Wavestyle_booking/';
 
 if (isProduction && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(`${appBaseUrl}service-worker.js`)
+    navigator.serviceWorker.register(`${appBaseUrl}service-worker.js?v=source-fix1`)
       .catch(error => console.error('No se pudo preparar Wavestyle para uso sin conexión:', error));
   }, { once: true });
 }
