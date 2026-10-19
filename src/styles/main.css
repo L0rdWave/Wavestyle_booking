@@ -2640,4 +2640,230 @@ body::before {
     left: 0.75rem;
     bottom: 4.25rem;
   }
-}
+}
+
+/* =========================================================
+   MINI GROOVEBOX PRO · DJ FX RACK, MUTE/SOLO & REC .WAV
+   ========================================================= */
+
+.groove-rec-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-color: rgba(255, 92, 92, 0.35);
+  color: #ffb8b8;
+}
+
+.groove-rec-button:hover {
+  border-color: #ff5c5c;
+  color: #fff;
+  background: rgba(255, 92, 92, 0.14);
+}
+
+.groove-rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+}
+
+.groove-rec-button.is-recording {
+  border-color: #ff4d4d;
+  color: #fff;
+  background: rgba(255, 59, 59, 0.24);
+  box-shadow: 0 0 18px rgba(255, 59, 59, 0.35);
+}
+
+.groove-rec-button.is-recording .groove-rec-dot {
+  animation: radioPulse 0.9s infinite ease-in-out;
+}
+
+.groove-fx-rack {
+  margin: 0 0 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: linear-gradient(165deg, rgba(22, 25, 34, 0.92), rgba(14, 16, 22, 0.95));
+}
+
+.groove-fx-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.groove-fx-header span {
+  color: var(--groove-accent);
+  font: 700 0.68rem var(--font-heading);
+  letter-spacing: 0.12em;
+}
+
+.groove-fx-reset {
+  padding: 0.25rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  color: #aeb6c2;
+  background: rgba(255, 255, 255, 0.04);
+  font: 700 0.62rem var(--font-heading);
+  cursor: pointer;
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+
+.groove-fx-reset:hover {
+  border-color: var(--groove-accent);
+  color: #fff;
+}
+
+.groove-fx-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: 0.9rem;
+}
+
+.groove-fx-control {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.groove-fx-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.groove-fx-label-row span {
+  color: #9ba4b2;
+  font: 700 0.6rem var(--font-heading);
+  letter-spacing: 0.06em;
+}
+
+.groove-fx-label-row output {
+  color: var(--text-main);
+  font: 700 0.64rem var(--font-heading);
+}
+
+.groove-fx-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--groove-accent);
+  cursor: pointer;
+}
+
+.groove-kill-kick-btn {
+  min-height: 38px;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid rgba(255, 112, 112, 0.35);
+  border-radius: 8px;
+  color: #ffb3b3;
+  background: rgba(255, 77, 77, 0.08);
+  font: 700 0.68rem var(--font-heading);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.groove-kill-kick-btn:hover {
+  border-color: #ff6b6b;
+  color: #fff;
+}
+
+.groove-kill-kick-btn.is-active,
+.groove-kill-kick-btn.is-killed {
+  border-color: #ff4747;
+  color: #fff;
+  background: #d92b2b;
+  box-shadow: 0 0 16px rgba(255, 71, 71, 0.48);
+}
+
+.groove-step-numbers,
+.groove-track,
+.groove-pitched-row {
+  grid-template-columns: 146px repeat(32, minmax(20px, 1fr));
+}
+
+.groove-pitched-heading {
+  grid-template-columns: 146px 1fr;
+}
+
+.groove-track-toprow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.groove-track-ms {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+.groove-ms-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 5px;
+  color: #8f98a6;
+  background: rgba(255, 255, 255, 0.03);
+  font: 700 0.56rem var(--font-heading);
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.groove-ms-btn:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.groove-rand-btn {
+  font-size: 0.68rem;
+  border-color: rgba(0, 255, 213, 0.28);
+  background: rgba(0, 255, 213, 0.06);
+}
+
+.groove-rand-btn:hover {
+  border-color: var(--groove-accent);
+  background: rgba(0, 255, 213, 0.18);
+  box-shadow: 0 0 10px rgba(0, 255, 213, 0.25);
+}
+
+.groove-mute-btn.is-active,
+.groove-ms-mute.is-active {
+  border-color: #ff5c5c;
+  color: #fff;
+  background: #c93030;
+}
+
+.groove-solo-btn.is-active,
+.groove-ms-solo.is-active {
+  border-color: #ffd166;
+  color: #090b10;
+  background: #ffd166;
+}
+
+.groove-track.is-silenced .groove-step,
+.groove-pitched-block.is-silenced .groove-step {
+  opacity: 0.32;
+}
+
+@media (max-width: 760px) {
+  .groove-fx-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .groove-kill-kick-btn {
+    width: 100%;
+  }
+}
+
+

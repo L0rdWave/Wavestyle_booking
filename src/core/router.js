@@ -1,6 +1,8 @@
 export function initRouter(renderCallback) {
   function handleRoute() {
-    const path = window.location.hash.slice(1) || '/';
+    const rawHash = window.location.hash.slice(1) || '/';
+    const [cleanPath] = rawHash.split('?');
+    const path = cleanPath || '/';
     
     // Limpiar clases de temas anteriores en el body
     document.body.className = '';

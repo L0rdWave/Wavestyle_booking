@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wavestyle-source-v3';
+const CACHE_NAME = 'wavestyle-source-v4';
 const CACHE_PREFIX = 'wavestyle-source-';
 const APP_BASE = '/Wavestyle_booking/';
 const ESSENTIAL_URLS = [
@@ -41,6 +41,32 @@ const OPTIONAL_URLS = [
   `${APP_BASE}public/audio/helios-wave-twilightronix.mp3`,
   `${APP_BASE}public/audio/vans-take-you-higher.mp3`,
   `${APP_BASE}src/Documentacion/rider-tecnico-wavestyle.pdf`,
+  `${APP_BASE}public/audio/groovebox/kick-house.wav`,
+  `${APP_BASE}public/audio/groovebox/kick-techno.wav`,
+  `${APP_BASE}public/audio/groovebox/kick-psy.wav`,
+  `${APP_BASE}public/audio/groovebox/snare-house.wav`,
+  `${APP_BASE}public/audio/groovebox/snare-techno.wav`,
+  `${APP_BASE}public/audio/groovebox/snare-psy.wav`,
+  `${APP_BASE}public/audio/groovebox/hat-club.wav`,
+  `${APP_BASE}public/audio/groovebox/hat-psy.wav`,
+  `${APP_BASE}public/audio/groovebox/openhat-club.wav`,
+  `${APP_BASE}public/audio/groovebox/openhat-psy.wav`,
+  `${APP_BASE}public/audio/groovebox/clap-house.wav`,
+  `${APP_BASE}public/audio/groovebox/clap-techno.wav`,
+  `${APP_BASE}public/audio/groovebox/clap-psy.wav`,
+  `${APP_BASE}public/audio/groovebox/rimshot.wav`,
+  `${APP_BASE}public/audio/groovebox/lowtom.wav`,
+  `${APP_BASE}public/audio/groovebox/hitom.wav`,
+  `${APP_BASE}public/audio/groovebox/cowbell.wav`,
+  `${APP_BASE}public/audio/groovebox/fx-house.wav`,
+  `${APP_BASE}public/audio/groovebox/fx-techno.wav`,
+  `${APP_BASE}public/audio/groovebox/fx-psy.wav`,
+  `${APP_BASE}public/audio/groovebox/bass-house.wav`,
+  `${APP_BASE}public/audio/groovebox/bass-techno.wav`,
+  `${APP_BASE}public/audio/groovebox/bass-psy.wav`,
+  `${APP_BASE}public/audio/groovebox/lead-house.wav`,
+  `${APP_BASE}public/audio/groovebox/lead-techno.wav`,
+  `${APP_BASE}public/audio/groovebox/lead-psy.wav`,
 ];
 const SKIP_CACHE = /\.(?:zip|rar)(?:$|\?)/i;
 

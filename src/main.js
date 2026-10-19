@@ -1,10 +1,10 @@
-import { initRouter } from './core/router.js';
+import { initRouter } from './core/router.js?v=groovebox-fx-20261018';
 import { renderHome } from './view/homeView.js?v=radio-20261018';
 import { renderHelios } from './view/heliosView.js?v=20261015-2230';
 import { renderVans } from './view/vansView.js?v=20261015-2230';
 import { renderSciKhole } from './view/sciKholeView.js';
 import { renderBooking } from './view/bookingView.js?v=20261015-2230';
-import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=groovebox-keys-20261016';
+import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=groovebox-smart-20261018';
 import { renderNightlifeView } from './view/nightlifeView.js';
 import { renderNightlifeProposalView } from './view/nightlifeProposalView.js';
 import { renderRadioView, syncRadioDockRoute } from './view/radioView.js?v=radio-20261018';
