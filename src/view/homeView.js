@@ -70,7 +70,9 @@ export function renderHome() {
                     ? 'Mini Groovebox: armá tus propios ritmos'
                     : mod.id === 'nightlife'
                       ? 'Próximas fechas, cuenta regresiva y archivo de eventos'
-                      : 'Módulo interactivo en preparación'}</p>
+                      : mod.id === 'radio'
+                        ? 'Sintonizador en vivo 24/7: House, Trance, Techno y Chill'
+                        : 'Módulo interactivo en preparación'}</p>
                   <span class="action-link">Inicializar <i data-lucide="chevron-right"></i></span>
                 </div>
               </a>

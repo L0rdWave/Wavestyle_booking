@@ -58,6 +58,12 @@
         "title": "NIGHTLIFE HUB",
         "path": "/nightlife",
         "status": "active"
+      },
+      {
+        "id": "radio",
+        "title": "Wavestyle Radio (24/7)",
+        "path": "/radio",
+        "status": "active"
       }
     ]
   }

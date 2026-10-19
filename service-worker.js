@@ -22,6 +22,7 @@ const ESSENTIAL_URLS = [
   `${APP_BASE}src/view/homeView.js`,
   `${APP_BASE}src/view/nightlifeView.js`,
   `${APP_BASE}src/view/nightlifeProposalView.js`,
+  `${APP_BASE}src/view/radioView.js`,
   `${APP_BASE}src/view/sciKholeView.js`,
   `${APP_BASE}src/view/vansView.js`,
   `${APP_BASE}public/events.json`,

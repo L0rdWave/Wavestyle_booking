@@ -1,12 +1,13 @@
 import { initRouter } from './core/router.js';
-import { renderHome } from './view/homeView.js?v=groovebox-20261015';
+import { renderHome } from './view/homeView.js?v=radio-20261018';
 import { renderHelios } from './view/heliosView.js?v=20261015-2230';
 import { renderVans } from './view/vansView.js?v=20261015-2230';
 import { renderSciKhole } from './view/sciKholeView.js';
 import { renderBooking } from './view/bookingView.js?v=20261015-2230';
 import { initGroovebox, renderGroovebox } from './view/grooveboxView.js?v=groovebox-keys-20261016';
-import { renderNightlifeView } from './view/nightlifeView.js?v=nightlife-env-fallback-20261016';
-import { renderNightlifeProposalView } from './view/nightlifeProposalView.js?v=nightlife-env-fallback-20261016';
+import { renderNightlifeView } from './view/nightlifeView.js';
+import { renderNightlifeProposalView } from './view/nightlifeProposalView.js';
+import { renderRadioView, syncRadioDockRoute } from './view/radioView.js?v=radio-20261018';
 import { initPwaInstall } from './pwa.js';
 
 const app = document.getElementById('app');
@@ -27,7 +28,7 @@ function initCustomCursor() {
   });
 
   document.addEventListener('mouseover', (e) => {
-    if (e.target.closest('a, button, .identity-card, .contact-card')) {
+    if (e.target.closest('a, button, .identity-card, .contact-card, .radio-station-card')) {
       cursor.classList.add('hovered');
     } else {
       cursor.classList.remove('hovered');
@@ -56,6 +57,8 @@ function render(path) {
     cleanupCurrentView = renderNightlifeView(app);
   } else if (path === '/nightlife/propose') {
     app.innerHTML = renderNightlifeProposalView();
+  } else if (path === '/radio') {
+    cleanupCurrentView = renderRadioView(app);
   } else {
     app.innerHTML = `
       <div class="construction-container">
@@ -64,6 +67,8 @@ function render(path) {
       </div>
     `;
   }
+
+  syncRadioDockRoute(path);
 
   // Inicializar íconos de Lucide tras re-renderizar la vista
   if (window.lucide) {
@@ -86,7 +91,7 @@ const appBaseUrl = viteEnvironment.BASE_URL ?? '/Wavestyle_booking/';
 
 if (isProduction && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(`${appBaseUrl}service-worker.js?v=source-fix2`)
+    navigator.serviceWorker.register(`${appBaseUrl}service-worker.js?v=source-v3`)
       .catch(error => console.error('No se pudo preparar Wavestyle para uso sin conexión:', error));
   }, { once: true });
 }
